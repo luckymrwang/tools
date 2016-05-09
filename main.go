@@ -1,13 +1,12 @@
 package main
 
 import (
-	_ "hello/routers"
 	"github.com/astaxie/beego"
-	"runtime"
+	_ "hello/routers"
+	// "runtime"
 )
 
 func main() {
-	runtime.GOMAXPROCS(runtime.NumCPU() - 1)
+	// runtime.GOMAXPROCS(runtime.NumCPU() - 1)
 	beego.Run()
 }
-
