@@ -14,4 +14,17 @@ func main() {
 	var a = [5]int{1, 2, 3, 4, 5}
 	slice := a[1:3]
 	fmt.Println(cap(slice))
+
+	x := 7
+	y := 8
+
+	max(x, y)
+	fmt.Println(y)
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }

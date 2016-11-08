@@ -15,4 +15,14 @@ func main() {
 		fmt.Println(i, ch)
 
 	}
+
+	var people []string
+	//	people := make([]string, 2)
+	//	people = append(people, "Boy", "Girl")
+	//	people := []string{"Boy", "Girl"}
+	Log("hello:", people)
+}
+
+func Log(v ...interface{}) {
+	fmt.Println(v...)
 }
