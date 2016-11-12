@@ -21,6 +21,10 @@ func main() {
 	//	people = append(people, "Boy", "Girl")
 	//	people := []string{"Boy", "Girl"}
 	Log("hello:", people)
+
+	var a int = 10
+	var b int64 = 12
+	Log(b - int64(a))
 }
 
 func Log(v ...interface{}) {
