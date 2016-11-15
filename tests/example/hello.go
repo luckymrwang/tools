@@ -17,10 +17,10 @@ func main() {
 	}
 
 	var people []string
-	//	people := make([]string, 2)
+	//	people = make([]string, 2)
 	//	people = append(people, "Boy", "Girl")
-	//	people := []string{"Boy", "Girl"}
-	Log("hello:", people)
+	people = []string{"Boy", "Girl"}
+	Log("hello:", people, "success ", "Good")
 
 	var a int = 10
 	var b int64 = 12
