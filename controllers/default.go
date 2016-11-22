@@ -1,11 +1,11 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego"
+	"hello/tools"
 )
 
 type MainController struct {
-	beego.Controller
+	BaseController
 }
 
 func (c *MainController) Get() {
@@ -15,5 +15,9 @@ func (c *MainController) Get() {
 }
 
 func (c *MainController) Test() {
-	c.Ctx.WriteString("test \n")
+	c.Ctx.WriteString("OK")
+}
+
+func (c *MainController) JsonStrDec() {
+	tools.JsonStream()
 }
