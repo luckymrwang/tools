@@ -21,3 +21,7 @@ func (c *MainController) Test() {
 func (c *MainController) JsonStrDec() {
 	tools.JsonStream()
 }
+
+func (c *MainController) JsonFile() {
+	tools.JsonStreamFile()
+}

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"strings"
 
@@ -15,6 +16,28 @@ func JsonStream() {
 {"appid":"1212","eventtime":"1479781226209","spreadurl":"kkkk","appkey":"36bbf2fbaeb64d7b9623ec4ee3cde575","devicetype":"iPhone8,2","adnetname":"\u667a\u6167\u63a8-\u96f7\u9706IOS-\u5929\u5929\u5feb\u62a5\u5927\u56fe","osversion":"10.1.1","idfa":"idfa","clicktime":"1479781180851","ip":"192.1.168.192"}
 {"appid":"2323","eventtime":"1479781341934","spreadurl":"kkkk","appkey":"36bbf2fbaeb64d7b9623ec4ee3cde575","devicetype":"iPhone7,1","adnetname":"\u667a\u6c47\u63a8-\u96f7\u9706\u4e4b\u6218-\u817e\u8baf\u5927\u56fe","osversion":"10.0.1","idfa":"idfa","clicktime":"1479780829406","ip":"192.1.168.192"}
 `
+	JsonHandle(jsonStream)
+}
+
+func httpGet(url string) {
+	req := httplib.Get(url)
+	str, err := req.String()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(str)
+}
+
+func JsonStreamFile() {
+	dat, err := ioutil.ReadFile("/Users/sino/Downloads/3.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	JsonHandle(string(dat))
+}
+
+func JsonHandle(jsonStream string) {
 	type Message struct {
 		Appid     string `json:"appid"`
 		Spreadurl string `json:"spreadurl"`
@@ -44,13 +67,4 @@ func JsonStream() {
 		//		url := fmt.Sprintf("xxx?appid=%s&idfa=%s&adnetname=%s&spreadurl=%s", m.Appid, m.Idfa, m.Adnetname, m.Spreadurl)
 
 	}
-}
-
-func httpGet(url string) {
-	req := httplib.Get(url)
-	str, err := req.String()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(str)
 }
