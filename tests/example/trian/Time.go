@@ -14,7 +14,7 @@ func main() {
 	day := daysIn(t.Month(), t.Year())
 	fmt.Println(day)
 
-	fmt.Println(t.Format("2006-01-02"))
+	fmt.Println(t.Add(-24 * time.Hour).Format("2006-01-02"))
 
 	zone, _ := time.LoadLocation("Asia/Tokyo")
 	fmt.Println(time.Now().In(zone))

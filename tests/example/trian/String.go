@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 )
 
 type App struct {
@@ -24,4 +25,7 @@ func main() {
 	} else {
 		fmt.Println("NO")
 	}
+
+	var sil []string = []string{"a", "b", "c"}
+	fmt.Println("'" + strings.Join(sil, "','") + "'")
 }
