@@ -12,4 +12,6 @@ func init() {
 	beego.Router("/test", &controllers.MainController{}, "*:Test")
 	beego.Router("/json_str_dec", &controllers.MainController{}, "*:JsonStrDec")
 	beego.Router("/json_file", &controllers.MainController{}, "*:JsonFile")
+
+	beego.Router("/go_curl", &controllers.MainController{}, "*:GoCurl")
 }

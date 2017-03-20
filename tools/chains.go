@@ -29,12 +29,12 @@ func httpGet(url string) {
 }
 
 func JsonStreamFile() {
-	dat, err := ioutil.ReadFile("/Users/sino/Downloads/3.txt")
+	dat, err := ioutil.ReadFile("/Users/sino/Downloads/tmp2.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	JsonHandle(string(dat))
+	JsonHandle2(string(dat))
 }
 
 func JsonHandle(jsonStream string) {
@@ -67,4 +67,42 @@ func JsonHandle(jsonStream string) {
 		//		url := fmt.Sprintf("xxx?appid=%s&idfa=%s&adnetname=%s&spreadurl=%s", m.Appid, m.Idfa, m.Adnetname, m.Spreadurl)
 
 	}
+}
+
+func JsonHandle2(jsonStream string) {
+	type Message struct {
+		Appid     string `json:"appid"`
+		Spreadurl string `json:"spreadurl"`
+		Adnetname string `json:"channel"`
+		Idfa      string `json:"idfa"`
+	}
+	dec := json.NewDecoder(strings.NewReader(jsonStream))
+	bigMap := make(map[string]int)
+	cnt := 0
+	for {
+		var m Message
+		if err := dec.Decode(&m); err == io.EOF {
+			break
+		} else if err != nil {
+			log.Fatal(err)
+		}
+
+		//		fmt.Println(m)
+
+		//		url := fmt.Sprintf("xxx?appid=%s&idfa=%s&channel=%s&spreadurl=%s", m.Appid, m.Idfa, m.Adnetname, m.Spreadurl)
+		//		fmt.Println(m.Idfa)
+		if len(m.Idfa) == 0 {
+			cnt++
+			continue
+		}
+
+		if _, ok := bigMap[m.Idfa]; ok {
+			bigMap[m.Idfa] += 1
+		} else {
+			bigMap[m.Idfa] = 1
+		}
+
+	}
+	fmt.Println(len(bigMap))
+	fmt.Println(cnt)
 }
