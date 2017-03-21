@@ -29,12 +29,23 @@ func httpGet(url string) {
 }
 
 func JsonStreamFile() {
+	dat, err := ioutil.ReadFile("/Users/sino/Downloads/tmp.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	JsonHandle(string(dat))
+}
+
+func JsonStreamFileEnhance() (map[string]int, MapSlice) {
 	dat, err := ioutil.ReadFile("/Users/sino/Downloads/tmp2.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	JsonHandle2(string(dat))
+	m := JsonHandleEnhance(string(dat))
+
+	return m, SortReverse(m)
 }
 
 func JsonHandle(jsonStream string) {
@@ -69,16 +80,16 @@ func JsonHandle(jsonStream string) {
 	}
 }
 
-func JsonHandle2(jsonStream string) {
+func JsonHandleEnhance(jsonStream string) map[string]int {
 	type Message struct {
 		Appid     string `json:"appid"`
 		Spreadurl string `json:"spreadurl"`
 		Adnetname string `json:"channel"`
 		Idfa      string `json:"idfa"`
 	}
+
 	dec := json.NewDecoder(strings.NewReader(jsonStream))
 	bigMap := make(map[string]int)
-	cnt := 0
 	for {
 		var m Message
 		if err := dec.Decode(&m); err == io.EOF {
@@ -87,12 +98,7 @@ func JsonHandle2(jsonStream string) {
 			log.Fatal(err)
 		}
 
-		//		fmt.Println(m)
-
-		//		url := fmt.Sprintf("xxx?appid=%s&idfa=%s&channel=%s&spreadurl=%s", m.Appid, m.Idfa, m.Adnetname, m.Spreadurl)
-		//		fmt.Println(m.Idfa)
 		if len(m.Idfa) == 0 {
-			cnt++
 			continue
 		}
 
@@ -103,6 +109,6 @@ func JsonHandle2(jsonStream string) {
 		}
 
 	}
-	fmt.Println(len(bigMap))
-	fmt.Println(cnt)
+
+	return bigMap
 }

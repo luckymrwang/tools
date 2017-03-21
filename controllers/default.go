@@ -32,6 +32,14 @@ func (c *MainController) JsonFile() {
 	tools.JsonStreamFile()
 }
 
+func (c *MainController) JsonFileEnhance() {
+	_, ms := tools.JsonStreamFileEnhance()
+	for _, val := range ms {
+		str := fmt.Sprintf("%s : %d \n", val.Key, val.Value)
+		c.Ctx.WriteString(str)
+	}
+}
+
 func (c *MainController) GoCurl() {
 	cnt := 10000
 	for i := 1; i <= 620000; i += cnt {

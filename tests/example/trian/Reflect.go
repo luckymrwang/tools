@@ -10,6 +10,7 @@ func main() {
 		"c": 3,
 	}
 
+	fmt.Println(reflect.ValueOf(abc))
 	keys := reflect.ValueOf(abc).MapKeys()
 
 	fmt.Println(keys) // [a b c]
