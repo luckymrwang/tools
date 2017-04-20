@@ -2,10 +2,10 @@ package controllers
 
 import (
 	"fmt"
-	"io/ioutil"
+	//	"io/ioutil"
 	"time"
 
-	"github.com/astaxie/beego/httplib"
+	//	"github.com/astaxie/beego/httplib"
 
 	"hello/tools"
 )
@@ -41,17 +41,38 @@ func (c *MainController) JsonFileEnhance() {
 }
 
 func (c *MainController) GoCurl() {
-	cnt := 10000
-	for i := 1; i <= 620000; i += cnt {
-		str := fmt.Sprintf("http://119.29.217.39/bi-agent2/api/maintain/fix_by_device_id?appid=2005001001&start=%d&end=%d", i, i+cnt)
+	//	cnt := 10000
+	//	for i := 1; i <= 620000; i += cnt {
+	//		str := fmt.Sprintf("http://119/bi-agent2/api/maintain/fix_by_device_id?appid=2005&start=%d&end=%d", i, i+cnt)
+
+	//		fmt.Println(str)
+	//		req, err := httplib.Get(str).SetTimeout(10*time.Minute, 10*time.Minute).Response()
+	//		if err != nil {
+	//			fmt.Println(err)
+	//		}
+
+	//		by, _ := ioutil.ReadAll(req.Body)
+	//		c.Ctx.WriteString(string(by))
+	//	}
+
+	start := "2017-02-01"
+	end := "2017-04-01"
+	t1, _ := time.Parse("2006-01-02", start)
+	t2, _ := time.Parse("2006-01-02", end)
+
+	for t := t1; t2.Sub(t) >= 0; t = t.AddDate(0, 1, 0) {
+		//		fmt.Println(t.Format("2006-01-02"), time.Date(t.Year(), t.Month()+1, 0, 0, 0, 0, 0, time.Local).Format("2006-01-02"))
+		sd := t.Format("2006-01-02")
+		ed := time.Date(t.Year(), t.Month()+1, 0, 0, 0, 0, 0, time.Local).Format("2006-01-02")
+		str := fmt.Sprintf("http://52/bi-agent/task/crontab/fix_key_deadline?start_date=%s&end_date=%s", sd, ed)
 
 		fmt.Println(str)
-		req, err := httplib.Get(str).SetTimeout(10*time.Minute, 10*time.Minute).Response()
-		if err != nil {
-			fmt.Println(err)
-		}
+		//		req, err := httplib.Get(str).SetTimeout(10*time.Minute, 10*time.Minute).Response()
+		//		if err != nil {
+		//			fmt.Println(err)
+		//		}
 
-		by, _ := ioutil.ReadAll(req.Body)
-		c.Ctx.WriteString(string(by))
+		//		by, _ := ioutil.ReadAll(req.Body)
+		//		c.Ctx.WriteString(string(by))
 	}
 }
