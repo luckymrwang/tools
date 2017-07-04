@@ -11,7 +11,7 @@ func main() {
 	}
 	fmt.Println(test["index"])
 	fmt.Println(test)
-	test2 := new([]int)
+	test2 := new(map[string]bool)
 	if *test2 == nil {
 		fmt.Println("test2 is nil")
 	}
@@ -29,5 +29,39 @@ func main() {
 		data[key] += val
 	}
 
+	// map
 	fmt.Println(data)
+	fmt.Println(Add(data))
+	fmt.Println(data)
+
+	// slice
+	fmt.Println(keys)
+	fmt.Println(ChangeSlice(keys))
+	fmt.Println(keys)
+
+	// array
+	arr := [3]string{"a", "b", "c"}
+	fmt.Println(arr)
+	fmt.Println(ChangeArr(arr))
+	fmt.Println(arr)
+}
+
+func Add(m map[string]float64) map[string]float64 {
+	for key, _ := range m {
+		m[key] += 1
+	}
+
+	return m
+}
+
+func ChangeSlice(s []string) []string {
+	s[0] = "abc"
+
+	return s
+}
+
+func ChangeArr(s [3]string) [3]string {
+	s[0] = "abc"
+
+	return s
 }
