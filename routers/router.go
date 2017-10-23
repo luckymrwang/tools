@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"hello/controllers"
+	"tools/controllers"
 
 	"github.com/astaxie/beego"
 )
@@ -15,4 +15,6 @@ func init() {
 	beego.Router("/json_file_enhance", &controllers.MainController{}, "*:JsonFileEnhance")
 
 	beego.Router("/go_curl", &controllers.MainController{}, "*:GoCurl")
+
+	beego.Router("/upload", &controllers.UploadController{})
 }

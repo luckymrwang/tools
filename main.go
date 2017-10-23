@@ -1,8 +1,9 @@
 package main
 
 import (
+	_ "tools/routers"
+
 	"github.com/astaxie/beego"
-	_ "hello/routers"
 	// "runtime"
 )
 

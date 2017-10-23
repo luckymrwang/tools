@@ -7,7 +7,7 @@ import (
 
 	//	"github.com/astaxie/beego/httplib"
 
-	"hello/tools"
+	"tools/utils"
 )
 
 type MainController struct {
@@ -18,6 +18,7 @@ func (c *MainController) Get() {
 	c.Data["Website"] = "beego.me"
 	c.Data["Email"] = "astaxie@gmail.com"
 	c.TplName = "index.tpl"
+	c.Render()
 }
 
 func (c *MainController) Test() {
@@ -25,15 +26,15 @@ func (c *MainController) Test() {
 }
 
 func (c *MainController) JsonStrDec() {
-	tools.JsonStream()
+	utils.JsonStream()
 }
 
 func (c *MainController) JsonFile() {
-	tools.JsonStreamFile()
+	utils.JsonStreamFile()
 }
 
 func (c *MainController) JsonFileEnhance() {
-	_, ms := tools.JsonStreamFileEnhance()
+	_, ms := utils.JsonStreamFileEnhance()
 	for _, val := range ms {
 		str := fmt.Sprintf("%s : %d \n", val.Key, val.Value)
 		c.Ctx.WriteString(str)
