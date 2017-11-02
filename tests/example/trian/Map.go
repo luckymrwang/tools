@@ -9,7 +9,6 @@ func main() {
 	if test == nil {
 		fmt.Println("test is nil")
 	}
-	fmt.Println(test["index"])
 	fmt.Println(test)
 	test2 := new(map[string]bool)
 	if *test2 == nil {

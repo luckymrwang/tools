@@ -36,4 +36,6 @@ func main() {
 
 	p(then.Add(diff))
 	p(then.Add(-diff))
+
+	fmt.Println("time:", 6*time.Hour.Nanoseconds()/int64(time.Millisecond))
 }
