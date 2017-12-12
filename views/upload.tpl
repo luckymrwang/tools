@@ -101,7 +101,7 @@
             var fd = new FormData(document.getElementById("fileinfo"));
             fd.append("label", "WEBUPLOAD");
             $.ajax({
-              url: "/upload",
+              url: "/upload?auth=123",
               type: "POST",
               data: fd,
               processData: false,  // tell jQuery not to process the data

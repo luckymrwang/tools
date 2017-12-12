@@ -16,6 +16,7 @@ func (c *UploadController) Get() {
 
 func (c *UploadController) Post() {
 	f, h, err := c.GetFile("uploadname")
+	fmt.Println("auth", c.GetString("auth"))
 	fmt.Println(f, h)
 	if err != nil {
 		log.Fatal("getfile err ", err)
