@@ -28,4 +28,14 @@ func main() {
 
 	var sil []string = []string{"a", "b", "c"}
 	fmt.Println("'" + strings.Join(sil, "','") + "'")
+
+	var ids []string
+	for _, v := range ids {
+		fmt.Println(v)
+	}
+
+	var s map[string]bool
+	for k, _ := range s {
+		fmt.Println(k)
+	}
 }

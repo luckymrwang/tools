@@ -43,6 +43,13 @@ func main() {
 	fmt.Println(arr)
 	fmt.Println(ChangeArr(arr))
 	fmt.Println(arr)
+
+	fmt.Println("kfk", data["jdflsafjl"])
+	if val, ok := data["jdflsafjl"]; ok {
+		fmt.Println("ok", val)
+	} else {
+		fmt.Println("not ok", val)
+	}
 }
 
 func Add(m map[string]float64) map[string]float64 {

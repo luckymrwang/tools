@@ -8,6 +8,7 @@ import (
 func main() {
 	typeShow()
 	pointer()
+	mapReflect()
 }
 
 func pointer() {

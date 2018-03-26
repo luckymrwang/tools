@@ -17,4 +17,6 @@ func init() {
 	beego.Router("/go_curl", &controllers.MainController{}, "*:GoCurl")
 
 	beego.Router("/upload", &controllers.UploadController{})
+
+	beego.Router("/drill/go_curl", &controllers.DrillController{}, "*:GoCurl")
 }

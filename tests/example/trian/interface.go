@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 )
 
 type tester interface {
@@ -26,4 +27,16 @@ func main() {
 
 	t.test()
 	fmt.Println(t.string())
+
+	var a interface{}
+	a = b()
+	if reflect.ValueOf(a).IsNil() {
+		fmt.Println("1")
+	} else {
+		fmt.Println("2")
+	}
+}
+
+func b() *int {
+	return nil
 }
