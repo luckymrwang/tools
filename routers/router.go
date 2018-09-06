@@ -18,5 +18,6 @@ func init() {
 
 	beego.Router("/upload", &controllers.UploadController{})
 
-	beego.Router("/drill/go_curl", &controllers.DrillController{}, "*:GoCurl")
+	beego.Router("/drill", &controllers.DrillController{}, "*:GoCurl")
+	beego.Router("/jdbc", &controllers.DrillController{}, "*:Jdbc")
 }

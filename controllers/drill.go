@@ -6,7 +6,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 	"unsafe"
+
+	"github.com/astaxie/beego/httplib"
 )
 
 type DrillController struct {
@@ -41,17 +44,55 @@ func (c *DrillController) GoCurl() {
 	}
 	request.Header.Set("Content-Type", "application/json;charset=UTF-8")
 	client := http.Client{}
+
+	start := time.Now()
 	resp, err := client.Do(request)
 	if err != nil {
 		fmt.Println(err.Error())
 		return
 	}
 	respBytes, err := ioutil.ReadAll(resp.Body)
+	end := time.Now()
 	if err != nil {
 		fmt.Println(err.Error())
 		return
+	} else {
+		fmt.Println("consuming:", end.Sub(start).String())
 	}
 	//byte数组直接转成string，优化内存
 	str := (*string)(unsafe.Pointer(&respBytes))
 	c.Ctx.WriteString(*str)
+}
+
+func (c *DrillController) Jdbc() {
+	sql := c.GetString("sql")
+
+	db := map[string]string{
+		"username": "test",
+		"host":     "datahunter.cn",
+		"password": "dh17test",
+		"name":     "test",
+		"fmt":      "mysql",
+	}
+	dbStr, err := json.Marshal(db)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+
+	start := time.Now()
+	req := httplib.Post("http://jdbcdev.datahunter.cn/sql")
+	req.Param("db", string(dbStr))
+	req.Param("sql", sql)
+	res, err := req.Response()
+	end := time.Now()
+
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("consuming:", end.Sub(start).String())
+	}
+
+	by, _ := ioutil.ReadAll(res.Body)
+	c.Ctx.WriteString(string(by))
 }

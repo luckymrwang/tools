@@ -24,4 +24,5 @@ func main() {
 	fmt.Println("fork:", *boolPtr)
 	fmt.Println("svar:", svar)
 	fmt.Println("tail:", flag.Args())
+	fmt.Println("args:", flag.Arg(0), flag.Arg(1))
 }

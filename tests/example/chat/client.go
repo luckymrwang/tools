@@ -35,6 +35,7 @@ func onMessageRecived(conn *net.TCPConn) {
 		fmt.Println(msg)
 		if err != nil {
 			panic(err)
+
 			break
 		}
 	}
