@@ -9,8 +9,8 @@ import (
 
 // modify it to yours
 const (
-	ACCESSID  = "LTAI8CLg4899HZgu"
-	ACCESSKEY = "AFGyVIFCaILfa4Q3u9uX8kmBnS9QvV"
+	ACCESSID  = ""
+	ACCESSKEY = ""
 )
 
 func main() {
@@ -18,7 +18,7 @@ func main() {
 	dysms.SetACLClient(ACCESSID, ACCESSKEY) // dysms.New(ACCESSID, ACCESSKEY)
 
 	// send to one person
-	respSendSms, err := dysms.SendSms(uuid.New(), "13161332258", "数猎天下", "SMS_143714198", `{"code":"DataHunter"}`).DoActionWithException()
+	respSendSms, err := dysms.SendSms(uuid.New(), "xxxxxx", "data", "SMS_143714xxx", `{"code":"DataHunter"}`).DoActionWithException()
 	if err != nil {
 		fmt.Println("send sms failed", err, respSendSms.Error())
 		return
