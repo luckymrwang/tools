@@ -22,17 +22,22 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net"
 
+	"github.com/mwitkow/grpc-proxy/proxy"
 	"google.golang.org/grpc"
 	pb "google.golang.org/grpc/examples/helloworld/helloworld"
 	"google.golang.org/grpc/reflection"
 )
 
 const (
-	port = ":50051"
+	port    = ":50051"
+	address = "localhost:50051"
 )
+
+var director proxy.StreamDirector
 
 // server is used to implement helloworld.GreeterServer.
 type server struct{}
@@ -52,11 +57,24 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+
+	// s := grpc.NewServer(
+	// 	grpc.CustomCodec(proxy.Codec()),
+	// 	grpc.UnknownServiceHandler(proxy.TransparentHandler(director)))
+	// pb.RegisterGreeterServer(s, &server{})
+
+	// s := grpc.NewServer(grpc.CustomCodec(proxy.Codec()))
+	// proxy.RegisterService(s, director,
+	// 	"mwitkow.testproto.TestService",
+	// 	"PingEmpty", "Ping", "PingError", "PingList")
+
 	s := grpc.NewServer()
 	pb.RegisterGreeterServer(s, &server{})
 	// Register reflection service on gRPC server.
 	reflection.Register(s)
+	fmt.Println(s.GetServiceInfo())
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
+
 }
