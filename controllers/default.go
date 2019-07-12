@@ -5,7 +5,7 @@ import (
 	//	"io/ioutil"
 	"time"
 
-	//	"github.com/astaxie/beego/httplib"
+	"github.com/astaxie/beego/httplib"
 
 	"tools/utils"
 )
@@ -22,6 +22,13 @@ func (c *MainController) Get() {
 }
 
 func (c *MainController) Test() {
+	req := httplib.Get("https://dev.datahunter.cn/dashboard/group/5ba4c10400c0f229dec6f1d1")
+	str, err := req.String()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(str)
+
 	c.Ctx.WriteString("OK")
 }
 
