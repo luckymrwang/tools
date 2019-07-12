@@ -12,8 +12,9 @@ import (
 var Address = []string{"127.0.0.1:9092"}
 
 func main() {
-	syncProducer(Address)
+	// syncProducer(Address)
 	//asyncProducer1(Address)
+	SaramaProducer()
 }
 
 //同步消息模式
@@ -33,7 +34,7 @@ func syncProducer(address []string) {
 		value := fmt.Sprintf(srcValue, i)
 		msg := &sarama.ProducerMessage{
 			Topic: topic,
-			Value: sarama.StringEncoder(value),
+			Value: sarama.ByteEncoder(value),
 		}
 		part, offset, err := p.SendMessage(msg)
 		if err != nil {
@@ -60,7 +61,7 @@ func SaramaProducer() {
 
 	fmt.Println("start make producer")
 	//使用配置,新建一个异步生产者
-	producer, e := sarama.NewAsyncProducer([]string{"182.61.9.153:6667", "182.61.9.154:6667", "182.61.9.155:6667"}, config)
+	producer, e := sarama.NewAsyncProducer(Address, config)
 	if e != nil {
 		fmt.Println(e)
 		return
@@ -72,8 +73,8 @@ func SaramaProducer() {
 	go func(p sarama.AsyncProducer) {
 		for {
 			select {
-			case <-p.Successes():
-				//fmt.Println("offset: ", suc.Offset, "timestamp: ", suc.Timestamp.String(), "partitions: ", suc.Partition)
+			case suc := <-p.Successes():
+				fmt.Println("offset: ", suc.Offset, "timestamp: ", suc.Timestamp.String(), "partitions: ", suc.Partition)
 			case fail := <-p.Errors():
 				fmt.Println("err: ", fail.Err)
 			}
@@ -89,7 +90,7 @@ func SaramaProducer() {
 		// 发送的消息,主题。
 		// 注意：这里的msg必须得是新构建的变量，不然你会发现发送过去的消息内容都是一样的，因为批次发送消息的关系。
 		msg := &sarama.ProducerMessage{
-			Topic: "0606_test",
+			Topic: "test1",
 		}
 
 		//将字符串转化为字节数组
