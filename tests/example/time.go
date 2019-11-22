@@ -1,11 +1,16 @@
 package main
 
-import "fmt"
-import "time"
+import (
+	"encoding/json"
+	"fmt"
+	"time"
+)
 
 func main() {
 	p := fmt.Println
 	now := time.Now()
+	rets, _ := json.Marshal(now)
+	fmt.Println("jjjj:", now.Format("2006-1-2T15:04:05Z07:00"), string(rets))
 	p(now)
 	then := time.Date(
 		2009, 11, 17, 20, 34, 58, 651387237, time.UTC)

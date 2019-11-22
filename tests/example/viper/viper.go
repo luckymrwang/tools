@@ -34,7 +34,8 @@ beard: true
 
 	env := viper.New()
 	env.AutomaticEnv()
-	fmt.Println(env.Get("HIVE_HOME"))
+	fmt.Println("env:", env.AllKeys())
+	fmt.Println("hive_home:", env.Get("HIVE_HOME"))
 
 	// file1 := viper.New()
 	// file1.SetConfigName("app1.yaml")

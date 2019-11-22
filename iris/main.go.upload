@@ -1,0 +1,195 @@
+package main
+
+import (
+	"bytes"
+	"crypto/md5"
+	"crypto/sha1"
+	"crypto/sha256"
+	"encoding/hex"
+	"fmt"
+	"hash"
+	"io"
+	"os"
+	"strconv"
+	"strings"
+	"time"
+
+	iris "github.com/kataras/iris"
+)
+
+const maxSize = 5 << 20 // 5MB
+
+func main() {
+	app := iris.New()
+
+	app.RegisterView(iris.HTML("./templates", ".html"))
+
+	// Serve the upload_form.html to the client.
+	app.Get("/upload", func(ctx iris.Context) {
+		// create a token (optionally).
+
+		now := time.Now().Unix()
+		h := md5.New()
+		io.WriteString(h, strconv.FormatInt(now, 10))
+		token := fmt.Sprintf("%x", h.Sum(nil))
+
+		// render the form with the token for any use you'd like.
+		// ctx.ViewData("", token)
+		// or add second argument to the `View` method.
+		// Token will be passed as {{.}} in the template.
+		ctx.View("upload_form.html", token)
+	})
+
+	/* Read before continue.
+	0. The default post max size is 32MB,
+	you can extend it to read more data using the `iris.WithPostMaxMemory(maxSize)` configurator at `app.Run`,
+	note that this will not be enough for your needs, read below.
+	1. The faster way to check the size is using the `ctx.GetContentLength()` which returns the whole request's size
+	(plus a logical number like 2MB or even 10MB for the rest of the size like headers). You can create a
+	middleware to adapt this to any necessary handler.
+	myLimiter := func(ctx iris.Context) {
+		if ctx.GetContentLength() > maxSize { // + 2 << 20 {
+			ctx.StatusCode(iris.StatusRequestEntityTooLarge)
+			return
+		}
+		ctx.Next()
+	}
+	app.Post("/upload", myLimiter, myUploadHandler)
+	Most clients will set the "Content-Length" header (like browsers) but it's always better to make sure that any client
+	can't send data that your server can't or doesn't want to handle. This can be happen using
+	the `app.Use(LimitRequestBodySize(maxSize))` (as app or route middleware)
+	or the `ctx.SetMaxRequestBodySize(maxSize)` to limit the request based on a customized logic inside a particular handler, they're the same,
+	read below.
+	2. You can force-limit the request body size inside a handler using the `ctx.SetMaxRequestBodySize(maxSize)`,
+	this will force the connection to close if the incoming data are larger (most clients will receive it as "connection reset"),
+	use that to make sure that the client will not send data that your server can't or doesn't want to accept, as a fallback.
+	app.Post("/upload", iris.LimitRequestBodySize(maxSize), myUploadHandler)
+	OR
+	app.Post("/upload", func(ctx iris.Context){
+		ctx.SetMaxRequestBodySize(maxSize)
+		// [...]
+	})
+	3. Another way is to receive the data and check the second return value's `Size` value of the `ctx.FormFile`, i.e `info.Size`, this will give you
+	the exact file size, not the whole incoming request data length.
+	app.Post("/", func(ctx iris.Context){
+		file, info, err := ctx.FormFile("uploadfile")
+		if err != nil {
+			ctx.StatusCode(iris.StatusInternalServerError)
+			ctx.HTML("Error while uploading: <b>" + err.Error() + "</b>")
+			return
+		}
+		defer file.Close()
+		if info.Size > maxSize {
+			ctx.StatusCode(iris.StatusRequestEntityTooLarge)
+			return
+		}
+		// [...]
+	})
+	*/
+
+	// Handle the post request from the upload_form.html to the server
+	app.Post("/upload", iris.LimitRequestBodySize(maxSize+1<<20), func(ctx iris.Context) {
+		// Get the file from the request.
+		file, info, err := ctx.FormFile("uploadfile")
+		if err != nil {
+			ctx.StatusCode(iris.StatusInternalServerError)
+			ctx.HTML("Error while uploading: <b>" + err.Error() + "</b>")
+			return
+		}
+		defer file.Close()
+		fname := info.Filename
+
+		var buff bytes.Buffer
+		fileSize, err := buff.ReadFrom(file)
+		fmt.Println(fileSize)
+		if err != nil {
+			ctx.StatusCode(iris.StatusInternalServerError)
+			ctx.HTML("Error while reading: <b>" + err.Error() + "</b>")
+			return
+		}
+
+		md5 := Md5(buff.Bytes())
+		filePath := fmt.Sprintf("%v/%v.%v", "./uploads", md5, strings.Split(fname, ".")[1])
+
+		file, info, err = ctx.FormFile("uploadfile")
+		if err != nil {
+			ctx.StatusCode(iris.StatusInternalServerError)
+			ctx.HTML("Error while uploading: <b>" + err.Error() + "</b>")
+			return
+		}
+		defer file.Close()
+		// Create a file with the same name
+		// assuming that you have a folder named 'uploads'
+		out, err := os.OpenFile(filePath,
+			os.O_WRONLY|os.O_CREATE, 0666)
+		if err != nil {
+			ctx.StatusCode(iris.StatusInternalServerError)
+			ctx.HTML("Error while uploading: <b>" + err.Error() + "</b>")
+			return
+		}
+		defer out.Close()
+
+		_, err = io.Copy(out, file)
+		if err != nil {
+			ctx.StatusCode(iris.StatusInternalServerError)
+			ctx.HTML("Error while copying: <b>" + err.Error() + "</b>")
+			return
+		}
+
+		ctx.StatusCode(iris.StatusOK)
+		ctx.HTML("upload success: <b>OK</b>")
+		return
+	})
+
+	// start the server at http://localhost:8080 with post limit at 5 MB.
+	app.Run(iris.Addr(":8080") /* 0.*/, iris.WithPostMaxMemory(maxSize))
+}
+
+func Md5(s ...interface{}) (r string) {
+	return getHash("md5", s...)
+}
+
+func getHash(algorithm string, s ...interface{}) (r string) {
+	r = hex.EncodeToString(hashBytes(algorithm, s...))
+	return
+}
+
+func hashBytes(algorithm string, s ...interface{}) (r []byte) {
+	var h hash.Hash
+	switch algorithm {
+	case "md5":
+		h = md5.New()
+	case "sha1":
+		h = sha1.New()
+	case "sha2", "sha256":
+		h = sha256.New()
+	}
+	for _, value := range s {
+		switch value.(type) {
+		case []byte:
+			h.Write(value.([]byte))
+		default:
+			h.Write([]byte(ToString(value)))
+		}
+	}
+	r = h.Sum(nil)
+	return
+}
+
+func ToString(v interface{}, def ...string) string {
+	if v != nil {
+		switch v.(type) {
+		case []byte:
+			return string(v.([]byte))
+		case int64:
+			return strconv.FormatInt(v.(int64), 10)
+		default:
+			return fmt.Sprintf("%v", v)
+		}
+	}
+	if len(def) > 0 {
+		return def[0]
+	} else {
+		return ""
+	}
+}
