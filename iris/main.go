@@ -1,52 +1,61 @@
 package main
 
 import (
-	"fmt" //只是一个可选的助手
-	"io"
-	"time" //展示延迟
+	"fmt"
+	"io/ioutil"
+	"time"
 
 	"github.com/kataras/iris"
 )
 
 func main() {
 	app := iris.New()
-	app.Get("/", func(ctx iris.Context) {
-		ctx.ContentType("text/html")
-		ctx.Header("Transfer-Encoding", "chunked")
-		i := 0
-		ints := []int{1, 2, 3, 5, 7, 9, 11, 13, 15, 17, 23, 29}
-		//以块的形式发送响应，并在每个块之间等待半秒钟
-		ctx.StreamWriter(func(w io.Writer) bool {
-			fmt.Fprintf(w, "Message number %d<br>", ints[i])
-			time.Sleep(500 * time.Millisecond) // simulate delay.
-			if i == len(ints)-1 {
-				return false //关闭并刷新
-			}
-			i++
-			return true //继续写入数据
-		})
+	// app.Get("/", before, mainHandler, after)
+	app.Use(func(ctx iris.Context) {
+		time.Now()
+		ctx.Next()
 	})
+	t := time.Now()
+	app.Done(func(ctx iris.Context) {
+		fmt.Println("finished：", time.Since(t))
+		ctx.Next()
+	})
+	app.Get("/regionOne/iapps-service.yaml", iappserverYamlHandler)
 
-	type messageNumber struct {
-		Number int `json:"number"`
+	app.Run(iris.Addr(":9090"))
+}
+
+func iappserverYamlHandler(ctx iris.Context) {
+	path := "./iapps-server.yaml"
+	c, err := ioutil.ReadFile(path)
+	if err != nil {
+		println(err)
 	}
+	ctx.WriteString(string(c))
+}
 
-	app.Get("/alternative", func(ctx iris.Context) {
-		ctx.ContentType("application/json")
-		ctx.Header("Transfer-Encoding", "chunked")
-		i := 0
-		ints := []int{1, 2, 3, 5, 7, 9, 11, 13, 15, 17, 23, 29}
-		//以块的形式发送响应，并在每个块之间等待半秒钟。
-		for {
-			ctx.JSON(messageNumber{Number: ints[i]})
-			ctx.WriteString("\n")
-			time.Sleep(500 * time.Millisecond) // simulate delay.
-			if i == len(ints)-1 {
-				break
-			}
-			i++
-			ctx.ResponseWriter().Flush()
-		}
-	})
-	app.Run(iris.Addr(":8080"))
+func loginNameHandler(ctx iris.Context) {
+	name := ctx.Params().Get("name")
+	println(name)
+	ctx.Next()
+}
+
+func loginHandler(ctx iris.Context) {
+	println("login")
+	ctx.Next()
+}
+
+func before(ctx iris.Context) {
+	println("before")
+	ctx.Next() //继续执行下一个handler，这本例中是mainHandler
+}
+
+func mainHandler(ctx iris.Context) {
+	println("mainHandler")
+	ctx.Next()
+}
+
+func after(ctx iris.Context) {
+	println("after")
+	ctx.Next()
 }

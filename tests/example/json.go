@@ -5,17 +5,18 @@ import (
 	"fmt"
 )
 
-type desc struct {
+type Desc struct {
 	Lang    string `json:"lang"`
 	Content string `json:"content"`
+	M       int    `json:"m,omitempty"`
 }
 type DescSlice struct {
-	Desc []desc `json:"body"`
+	Desc []Desc `json:"body"`
 }
 
 func main() {
 	app1 := `{"lang":"ch", "content":"1233456"}`
-	var info1 desc
+	var info1 Desc
 	err := json.Unmarshal([]byte(app1), &info1)
 	if err != nil {
 		fmt.Printf("error is %v\n", err)
@@ -24,7 +25,7 @@ func main() {
 	}
 
 	app2 := `[{"lang":"ch01","content":"1233456"},{"lang":"ch02","content":"1233456"}]`
-	var info2 []desc
+	var info2 []Desc
 	err = json.Unmarshal([]byte(app2), &info2)
 	if err != nil {
 		fmt.Printf("error is %v\n", err)
@@ -40,4 +41,11 @@ func main() {
 	} else {
 		fmt.Printf("%v\n", info3)
 	}
+
+	des := Desc{
+		Lang:    "kaa",
+		Content: "kkk",
+	}
+	data, _ := json.Marshal(des)
+	fmt.Println(string(data), des.M)
 }

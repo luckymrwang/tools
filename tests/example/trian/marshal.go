@@ -5,6 +5,11 @@ import (
 	"fmt"
 )
 
+type Student struct {
+	Name string `json:"name"`
+	Age  int    `json:"age"`
+}
+
 func main() {
 	var subAppIds []string
 	appIds := `["2005001","2005002","2005003"]`
@@ -23,4 +28,16 @@ func main() {
 	} else {
 		fmt.Println(zones)
 	}
+
+	data = `"[{\"name\":\"hello\",\"age\":12},{\"name\":\"boy\",\"age\":12}]"`
+	var stu []*Student
+	err = json.Unmarshal([]byte(data), &stu)
+	if err != nil {
+		fmt.Println("eerrrr:", err)
+	} else {
+		for _, s := range stu {
+			fmt.Println(s.Name, s.Age)
+		}
+	}
+
 }

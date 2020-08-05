@@ -1,0 +1,248 @@
+incloud-region:
+  regionid: regionOne
+incloud-service:
+  endpoints:
+    i2fa-check:
+      enabled: true
+      filterIgnoreUrl: GET:/getToken
+      path: /icbb-check/**
+      stripPrefix: true
+      url: https://100.2.97.211:32305
+    i2fa-manager:
+      enabled: true
+      filterIgnoreUrl: GET:/getToken
+      path: /icbb-check/**
+      stripPrefix: true
+      url: https://100.2.97.211:32304
+    ialert:
+      enabled: true
+      stripPrefix: true
+      url: http://ialert:32503
+    iapps:
+      enabled: true
+      path: /iapps/**
+      stripPrefix: true
+      url: http://iapps:32607
+    iapps2:
+      enabled: true
+      path: /iapps2/**
+      stripPrefix: true
+      url: http://iapps2:32607
+    iauth:
+      enabled: true
+      filterIgnoreUrl: GET:/v1/auth/tokens;POST:/v1/auth/tokens;GET:/v1/auth/types;GET:/v1/auth/users/{account};POST:/v1/auth/users/twofactorServerInfo
+      path: /iauth/**
+      stripPrefix: true
+      url: http://iauth:32100
+    ibase:
+      enabled: true
+      filterIgnoreUrl: GET:/v1/sysconfig/params;GET:/v1/serialnumbers/product;GET:/v1/sysconfig/loadPicture;GET:/v1/twofactorauth/download/{caId}
+      path: /ibase/**
+      stripPrefix: true
+      url: http://ibase:32101
+    icharge-collector-hypervisor-service:
+      enabled: false
+      path: /icharge-collector-hypervisor-service/**
+      stripPrefix: true
+      url: http://icharge-collector-hypervisor-service:32609
+    icharge-collector-openstack-service:
+      enabled: false
+      path: /icharge-collector-openstack-service/**
+      stripPrefix: true
+      url: http://icharge-collector-openstack-service:32608
+    icharge:
+      enabled: false
+      path: /icharge/**
+      stripPrefix: true
+      url: http://icharge:32601
+    icinder-common:
+      enabled: false
+      path: /icinder-common/**
+      stripPrefix: true
+      url: http://icinder-common:32411
+    icinder-hypervisor:
+      enabled: false
+      path: /icinder-hypervisor/**
+      stripPrefix: true
+      url: http://icinder-hypervisor:32412
+    icinder-openstack:
+      enabled: false
+      path: /icinder-openstack/**
+      stripPrefix: true
+      url: http://icinder-openstack:32413
+    icollector-container:
+      enabled: true
+      path: /icollector/**
+      stripPrefix: true
+      url: http://icollector-container:32506
+    icollector-hypervisor:
+      enabled: false
+      path: /icollector/**
+      stripPrefix: true
+      url: http://icollector-hypervisor:32504
+    icollector-openstack:
+      enabled: false
+      path: /icollector/**
+      stripPrefix: true
+      url: http://icollector-openstack:32505
+    icompute-common:
+      enabled: false
+      path: /icompute-common/**
+      stripPrefix: true
+      url: http://icompute-common:32203
+    icompute-hypervisor:
+      enabled: false
+      path: /icompute-hypervisor/**
+      stripPrefix: true
+      url: http://icompute-hypervisor:32201
+    icompute-openstack:
+      enabled: false
+      path: /icompute-openstack/**
+      stripPrefix: true
+      url: http://icompute-openstack:32202
+    idevops:
+      enabled: true
+      path: /idevops/**
+      stripPrefix: true
+      url: http://100.2.97.211:32605
+    ihybrid:
+      enabled: false
+      path: /ihybrid/**
+      stripPrefix: true
+      url: http://ihybrid:32160
+    ilifecycle:
+      enabled: true
+      path: /ilifecycle/**
+      stripPrefix: true
+      url: http://100.2.97.214:32406
+    imanila:
+      enabled: false
+      path: /imanila/**
+      stripPrefix: true
+      url: http://imanila:32404
+    imirror-hypervisor:
+      enabled: false
+      path: /imirror-hypervisor/**
+      stripPrefix: true
+      url: http://imirror-hypervisor:32421
+    imirror-openstack:
+      enabled: false
+      path: /imirror-openstack/**
+      stripPrefix: true
+      url: http://imirror-openstack:32422
+    imonitor:
+      enabled: true
+      path: /imonitor/**
+      stripPrefix: true
+      url: http://100.2.97.214:32501
+    inetwork-advance:
+      enabled: false
+      path: /inetwork-advance/**
+      stripPrefix: true
+      url: http://inetwork-advance:32308
+    inetwork-core:
+      enabled: false
+      path: /inetwork-core/**
+      stripPrefix: true
+      url: http://inetwork-core:32306
+    inetwork-l3:
+      enabled: false
+      path: /inetwork-l3/**
+      stripPrefix: true
+      url: http://inetwork-l3:32307
+    ipaas:
+      enabled: true
+      path: /ipaas/**
+      stripPrefix: true
+      url: http://100.2.97.214:32606
+    iphymachine:
+      enabled: false
+      path: /iphymachine/**
+      stripPrefix: true
+      url: http://iphymachine:32900
+    ireport:
+      enabled: false
+      path: /ireport/**
+      stripPrefix: true
+      url: http://ireport:32603
+    iresource-common:
+      enabled: false
+      path: /iresource-common/**
+      stripPrefix: true
+      url: http://iresource-common:32161
+    istorage-hypervisor:
+      enabled: false
+      path: /istorage-hypervisor/**
+      stripPrefix: true
+      url: http://istorage-hypervisor:32401
+    istorage-openstack:
+      enabled: false
+      path: /istorage-openstack/**
+      stripPrefix: true
+      url: http://istorage-openstack:32402
+    iswift:
+      enabled: false
+      path: /iswift/**
+      stripPrefix: true
+      url: http://iswift:32405
+    itask:
+      enabled: true
+      filterIgnoreUrl: GET:/gs-guide-websocket;POST:/gs-guide-websocket
+      path: /itask/**
+      stripPrefix: true
+      url: http://itask:32105
+    itrouble:
+      enabled: false
+      path: /itrouble/**
+      stripPrefix: true
+      url: http://itrouble:32609
+    ivapp:
+      enabled: false
+      path: /ivapp/**
+      stripPrefix: true
+      url: http://ivapp:32608
+incloud:
+  common:
+    db:
+      password: incloudmanager123456a?
+      url: 100.2.97.211:22819
+      username: incloudmanager
+    etcd:
+      hosts: 100.2.97.211,100.2.97.212,100.2.97.213
+      port: 2379
+    flyway:
+      threepower: false
+    rabbitmq:
+      host: rabbitmq-ha
+      password: incloudmanager123456a?
+      port: 5672
+      username: incloudmanager
+    redis:
+      database: 0
+      host: 127.0.0.1
+      password:
+      port: 6379
+      timeout: 6000
+    zk:
+      password: incloudmanager123456a?
+      url: zookeeper:2181
+      username: incloudmanager
+  iapps:
+    db:
+      password:
+      url: 127.0.0.1:3306/iapps
+      username: root
+    etcd:
+      hosts: 100.2.97.211,100.2.97.212,100.2.97.213
+      port: 2379
+    redis:
+      database: 0
+      host: 127.0.0.1
+      password: inspur?Redis123
+      port: 36379
+      timeout: 6000
+    registry_image: 100.2.97.211:5000
+    zk:
+      name: incloudmanager
+      password: incloudmanager123456a?
+      url: zookeeper:2181
