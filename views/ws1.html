@@ -1,0 +1,66 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+<script>
+
+  function connect() {
+    var ws = new WebSocket('ws://127.0.0.1:9001/ws/join?auth=4234f900e1fa70ad221d1b2e89f8aaf623');
+    ws.onopen = function () {
+      console.log("Connected to WebSocket server.");//连接成功
+    };
+
+    ws.onmessage = function (e) {
+      var data = JSON.parse(e.data);
+      console.log("onmessage:", data);
+      var s = $("<span>");
+      s.text(data.Content + " 消息来自:" + data.From + " 时间:" + data.Timestamp);
+      $("#msg").append(s).append("<br><br>");
+    };
+
+    ws.onclose = function (e) {
+      console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+      setTimeout(function () {
+        connect();
+      }, 1000);
+    };
+
+    ws.onerror = function (err) {
+      console.error('Socket encountered error: ', err.message, 'Closing socket');
+      ws.close();
+    };
+
+    var count = 0;
+    $("#send").on("click", function () {
+      var msg = {};
+      msg["Msgtype"] = "text";
+      msg["From"] = "客户端";
+      msg["Content"] = "Hello";
+      msg["Timestamp"] = Date();
+      console.log("send:", JSON.stringify(msg))
+      var s = $("<span>");
+      s.text(msg.Content + " 消息发自:" + msg.From + " 时间:" + msg.Timestamp);
+      $("#msg").append(s).append("<br>");
+      ws.send(JSON.stringify(msg));
+    });
+  }
+
+  $(function () {
+    connect();
+  }
+  );
+
+</script>
+
+<body>
+  <div>websocket push msg 演示</div>
+  <div id="msg"></div>
+  <button id="send">发消息</button>
+</body>
+<script>
+
+</script>
+
+</html>

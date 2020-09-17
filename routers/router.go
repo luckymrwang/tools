@@ -20,4 +20,7 @@ func init() {
 
 	beego.Router("/drill", &controllers.DrillController{}, "*:GoCurl")
 	beego.Router("/jdbc", &controllers.DrillController{}, "*:Jdbc")
+
+	beego.Router("/ws/:id", &controllers.WebSocketController{}, "get:Get")
+	beego.Router("/ws/join", &controllers.WebSocketController{}, "*:Join")
 }
