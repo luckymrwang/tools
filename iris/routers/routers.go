@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"time"
+	"tools/iris/common"
 
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/kataras/iris/v12"
@@ -30,6 +31,8 @@ func Init(app *iris.Application) {
 	app.Get("/regionOne/iapps-service.yaml", iappserverYamlHandler)
 	hubBus := app.Party("/v1", crs).AllowMethods(iris.MethodOptions)
 	Hub(hubBus)
+
+	app.Use(iris.FromStd(common.CreateAttachHandler("/api/sockjs")))
 }
 
 func iappserverYamlHandler(ctx iris.Context) {
@@ -69,4 +72,6 @@ func after(ctx iris.Context) {
 
 func Hub(party iris.Party) {
 	DemoHub(party)
+	ContainerHub(party)
+	WebsocketHub(party)
 }
