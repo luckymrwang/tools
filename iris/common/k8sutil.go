@@ -53,6 +53,7 @@ func GetDynamicClient(credential string) (dynamic.Interface, error) {
 	if err != nil {
 		return nil, err
 	}
+	restConfig.APIPath = "/apis"
 	dynamicClient, err := dynamic.NewForConfig(restConfig)
 	if err != nil {
 		return nil, fmt.Errorf("get dynamic client err: ", err)
