@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92a4bc24-987e-4ebd-8cf1-cd3dce7f79fc" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/controllers/container_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/../go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/k8sutil.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/k8sutil.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/container.go" beforeDir="false" afterPath="$PROJECT_DIR$/services/container.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tests/example/ticker.go" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,8 +40,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/container.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="15" column="61" selection-start-line="15" selection-start-column="61" selection-end-line="15" selection-end-column="61" />
+            <state relative-caret-position="154">
+              <caret line="11" column="45" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="45" />
               <folding>
                 <element signature="e#21#86#0" expanded="true" />
               </folding>
@@ -59,26 +61,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services/container.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="32" column="33" lean-forward="true" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/common/k8sutil.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="55" column="31" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
+            <state relative-caret-position="506">
+              <caret line="32" column="33" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/Cellar/go/1.14.2_1/libexec/src/io/ioutil/ioutil.go">
+        <entry file="file://$PROJECT_DIR$/common/k8sutil.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="990">
-              <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+            <state relative-caret-position="748">
+              <caret line="43" column="45" selection-start-line="43" selection-start-column="45" selection-end-line="43" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -92,23 +85,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/terminal.go">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/controllers/container_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6490">
-              <caret line="312" column="5" selection-start-line="312" selection-start-column="5" selection-end-line="312" selection-end-column="5" />
+            <state relative-caret-position="308">
+              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
               <folding>
-                <element signature="e#617#953#0" expanded="true" />
+                <element signature="e#21#66#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../../pkg/mod/github.com/emicklei/go-restful@v2.12.0+incompatible/request.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2354">
-              <caret line="110" column="17" selection-start-line="110" selection-start-column="17" selection-end-line="110" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -162,14 +146,15 @@
         <option value="$PROJECT_DIR$/common/terminal.go" />
         <option value="$PROJECT_DIR$/services/container.go" />
         <option value="$PROJECT_DIR$/common/k8sutil.go" />
+        <option value="$PROJECT_DIR$/controllers/container_test.go" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="224" />
-    <option name="y" value="140" />
-    <option name="width" value="1344" />
-    <option name="height" value="840" />
+    <option name="x" value="71" />
+    <option name="y" value="61" />
+    <option name="width" value="1650" />
+    <option name="height" value="1014" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -179,6 +164,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -189,87 +175,16 @@
             <path>
               <item name="iris" type="b2602c69:ProjectViewProjectNode" />
               <item name="iris" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="iris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="iris" type="462c0819:PsiDirectoryNode" />
               <item name="controllers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="iris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="iris" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="iris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="iris" type="462c0819:PsiDirectoryNode" />
-              <item name="routers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="iris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="iris" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="iris" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="iris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Go SDK 1.14.2" type="20ee2d1f:SyntheticLibraryElementNode" />
-            </path>
-            <path>
-              <item name="iris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Go SDK 1.14.2" type="20ee2d1f:SyntheticLibraryElementNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="iris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Go SDK 1.14.2" type="20ee2d1f:SyntheticLibraryElementNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="encoding" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="iris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Go SDK 1.14.2" type="20ee2d1f:SyntheticLibraryElementNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="encoding" type="462c0819:PsiDirectoryNode" />
-              <item name="base64" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="iris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Go SDK 1.14.2" type="20ee2d1f:SyntheticLibraryElementNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="io" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="iris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Go SDK 1.14.2" type="20ee2d1f:SyntheticLibraryElementNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="io" type="462c0819:PsiDirectoryNode" />
-              <item name="ioutil" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="iris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-            </path>
-            <path>
-              <item name="iris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -286,7 +201,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="terminal" />
+    <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -309,7 +224,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestEcho in tools/iris/services">
+  <component name="RunManager" selected="Go Test.TestHandleExecShell in tools/iris/controllers">
     <configuration name="go build tools/iris" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
       <module name="iris" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -331,12 +246,25 @@
       <pattern value="^TestEcho$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestHandleExecShell in tools/iris/controllers" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="iris" />
+      <working_directory value="$PROJECT_DIR$/controllers" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="tools/iris/controllers" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestHandleExecShell$" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Go Build.go build tools/iris" />
       <item itemvalue="Go Test.TestEcho in tools/iris/services" />
+      <item itemvalue="Go Test.TestHandleExecShell in tools/iris/controllers" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestHandleExecShell in tools/iris/controllers" />
         <item itemvalue="Go Test.TestEcho in tools/iris/services" />
       </list>
     </recent_temporary>
@@ -354,18 +282,24 @@
     <history-entry file="TestEcho_in_tools_iris_services - 2020.09.16 at 08h 55m 07s.xml">
       <configuration name="TestEcho in tools/iris/services" configurationId="GoTestRunConfiguration" />
     </history-entry>
+    <history-entry file="TestHandleExecShell_in_tools_iris_controllers - 2020.09.23 at 18h 26m 38s.xml">
+      <configuration name="TestHandleExecShell in tools/iris/controllers" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestHandleExecShell_in_tools_iris_controllers - 2020.09.23 at 18h 28m 09s.xml">
+      <configuration name="TestHandleExecShell in tools/iris/controllers" configurationId="GoTestRunConfiguration" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1792" height="1097" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.70759493" visible="true" weight="0.19028571" />
-      <window_info id="Structure" order="1" sideWeight="0.29240507" side_tool="true" visible="true" weight="0.19028571" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.69367087" visible="true" weight="0.21714285" />
+      <window_info id="Structure" order="1" sideWeight="0.3063291" side_tool="true" visible="true" weight="0.21714285" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32892057" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3167006" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.36354378" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -532,20 +466,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../pkg/mod/k8s.io/client-go@v0.18.2/kubernetes/clientset.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="369" column="5" selection-start-line="369" selection-start-column="5" selection-end-line="369" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../pkg/mod/github.com/kataras/iris/v12@v12.2.0-alpha/iris.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18854">
-          <caret line="891" column="24" selection-start-line="891" selection-start-column="24" selection-end-line="891" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../pkg/mod/k8s.io/client-go@v0.18.2/kubernetes/clientset.go" />
+    <entry file="file://$PROJECT_DIR$/../../../pkg/mod/github.com/kataras/iris/v12@v12.2.0-alpha/iris.go" />
     <entry file="file://$PROJECT_DIR$/routers/routers.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
@@ -557,6 +479,38 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret selection-end-line="6" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../pkg/mod/github.com/emicklei/go-restful@v2.12.0+incompatible/request.go" />
+    <entry file="file:///usr/local/Cellar/go/1.14.2_1/libexec/src/io/ioutil/ioutil.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/terminal.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6490">
+          <caret line="312" column="5" selection-start-line="312" selection-start-column="5" selection-end-line="312" selection-end-column="5" />
+          <folding>
+            <element signature="e#617#953#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/goland.vmoptions">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="19" column="68" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../pkg/mod/k8s.io/client-go@v0.18.2/tools/clientcmd/client_config.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1606">
+          <caret line="87" column="53" selection-start-line="87" selection-start-column="53" selection-end-line="87" selection-end-column="53" />
         </state>
       </provider>
     </entry>
@@ -579,8 +533,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/container.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="15" column="61" selection-start-line="15" selection-start-column="61" selection-end-line="15" selection-end-column="61" />
+        <state relative-caret-position="154">
+          <caret line="11" column="45" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="45" />
           <folding>
             <element signature="e#21#86#0" expanded="true" />
           </folding>
@@ -594,10 +548,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/Cellar/go/1.14.2_1/libexec/src/io/ioutil/ioutil.go">
+    <entry file="file://$PROJECT_DIR$/services/container.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+        <state relative-caret-position="506">
+          <caret line="32" column="33" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/k8sutil.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="43" column="45" selection-start-line="43" selection-start-column="45" selection-end-line="43" selection-end-column="45" />
         </state>
       </provider>
     </entry>
@@ -608,34 +569,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/terminal.go">
+    <entry file="file://$PROJECT_DIR$/controllers/container_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6490">
-          <caret line="312" column="5" selection-start-line="312" selection-start-column="5" selection-end-line="312" selection-end-column="5" />
+        <state relative-caret-position="308">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding>
-            <element signature="e#617#953#0" expanded="true" />
+            <element signature="e#21#66#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../pkg/mod/github.com/emicklei/go-restful@v2.12.0+incompatible/request.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2354">
-          <caret line="110" column="17" selection-start-line="110" selection-start-column="17" selection-end-line="110" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/container.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="32" column="33" lean-forward="true" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/k8sutil.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="55" column="31" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
         </state>
       </provider>
     </entry>
