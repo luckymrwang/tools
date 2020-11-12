@@ -2,15 +2,20 @@ package routers
 
 import (
 	"fmt"
-	"io/ioutil"
-	"time"
-	"tools/iris/common"
-
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/kataras/iris/v12"
+	"io/ioutil"
+	"net/http"
+	"time"
 )
 
 func Init(app *iris.Application) {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("recover:", r)
+			return
+		}
+	}()
 	crs := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"}, // allows everything, use that to change the hosts.
 		AllowCredentials: true,          // allows browser send cookie to service
@@ -32,7 +37,9 @@ func Init(app *iris.Application) {
 	hubBus := app.Party("/v1", crs).AllowMethods(iris.MethodOptions)
 	Hub(hubBus)
 
-	app.Use(iris.FromStd(common.CreateAttachHandler("/api/sockjs")))
+	app.Use(iris.FromStd(func(w http.ResponseWriter, r *http.Request) {
+		println("Request path: " + r.URL.Path)
+	}))
 }
 
 func iappserverYamlHandler(ctx iris.Context) {
@@ -74,4 +81,8 @@ func Hub(party iris.Party) {
 	DemoHub(party)
 	ContainerHub(party)
 	WebsocketHub(party)
+}
+
+func p() {
+	panic("xxxddd")
 }

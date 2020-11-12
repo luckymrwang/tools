@@ -21,7 +21,6 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"net/http"
 	"sync"
 
 	restful "github.com/emicklei/go-restful"
@@ -61,8 +60,8 @@ type TerminalSession struct {
 // stdout  be->fe     Data           Output from the process
 // toast   be->fe     Data           OOB message to be shown to the user
 type TerminalMessage struct {
-	Op, Data, SessionID string
-	Rows, Cols          uint16
+	Op, Data   string
+	Rows, Cols uint16
 }
 
 // TerminalSize handles pty->process resize events
@@ -171,43 +170,38 @@ func (sm *SessionMap) Close(sessionId string, status uint32, reason string) {
 
 var terminalSessions = SessionMap{Sessions: make(map[string]TerminalSession)}
 
-// handleTerminalSession is Called by net/http for any new /api/sockjs connections
-func handleTerminalSession(session sockjs.Session) {
+// HandleTerminalSession is Called by net/http for any new /api/sockjs connections
+func HandleTerminalSession(session sockjs.Session) {
 	var (
-		buf             string
-		err             error
-		msg             TerminalMessage
+		//buf             string
+		//err             error
+		//msg             TerminalMessage
 		terminalSession TerminalSession
 	)
 
-	if buf, err = session.Recv(); err != nil {
-		log.Printf("handleTerminalSession: can't Recv: %v", err)
-		return
-	}
+	//if buf, err = session.Recv(); err != nil {
+	//	log.Printf("handleTerminalSession: can't Recv: %v", err)
+	//	return
+	//}
+	//
+	//if err = json.Unmarshal([]byte(buf), &msg); err != nil {
+	//	log.Printf("handleTerminalSession: can't UnMarshal (%v): %s", err, buf)
+	//	return
+	//}
+	//
+	//if msg.Op != "bind" {
+	//	log.Printf("handleTerminalSession: expected 'bind' message, got: %s", buf)
+	//	return
+	//}
 
-	if err = json.Unmarshal([]byte(buf), &msg); err != nil {
-		log.Printf("handleTerminalSession: can't UnMarshal (%v): %s", err, buf)
-		return
-	}
-
-	if msg.Op != "bind" {
-		log.Printf("handleTerminalSession: expected 'bind' message, got: %s", buf)
-		return
-	}
-
-	if terminalSession = terminalSessions.Get(msg.SessionID); terminalSession.id == "" {
-		log.Printf("handleTerminalSession: can't find session '%s'", msg.SessionID)
+	if terminalSession = terminalSessions.Get(session.ID()); terminalSession.id == "" {
+		log.Printf("handleTerminalSession: can't find session '%s'", session.ID())
 		return
 	}
 
 	terminalSession.sockJSSession = session
-	terminalSessions.Set(msg.SessionID, terminalSession)
+	terminalSessions.Set(session.ID(), terminalSession)
 	terminalSession.bound <- nil
-}
-
-// CreateAttachHandler is called from main for /api/sockjs
-func CreateAttachHandler(path string) http.Handler {
-	return sockjs.NewHandler(path, sockjs.DefaultOptions, handleTerminalSession)
 }
 
 // startProcess is called by handleAttach
@@ -278,7 +272,7 @@ func isValidShell(validShells []string, shell string) bool {
 // WaitForTerminal is called from apihandler.handleAttach as a goroutine
 // Waits for the SockJS connection to be opened by the client the session to be bound in handleTerminalSession
 func WaitForTerminal(k8sClient kubernetes.Interface, cfg *rest.Config, request *restful.Request, sessionId string) {
-	shell := request.Attribute("shell").(string)
+	shell := fmt.Sprintf("%v", request.Attribute("shell"))
 
 	select {
 	case <-terminalSessions.Get(sessionId).bound:
