@@ -1,0 +1,56 @@
+basePath: /api/v1
+definitions:
+  test.DemoParam:
+    properties:
+      age:
+        type: integer
+      name:
+        type: string
+      sub:
+        type: SubParam
+    type: object
+info:
+  contact: {}
+  description: This is a sample server celler server.
+  license: {}
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /namespaces/{namespace}/pods/{pod}/containers/{container}/shell:
+    get:
+      consumes:
+      - application/json
+      description: Demoxx
+      parameters:
+      - description: namespace
+        in: path
+        name: namespace
+        required: true
+        type: string
+      - description: pod
+        in: path
+        name: pod
+        required: true
+        type: string
+      - description: container
+        in: path
+        name: container
+        required: true
+        type: string
+      - description: container
+        in: body
+        name: DemoParam
+        required: true
+        schema:
+          $ref: '#/definitions/test.DemoParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: Demo
+      tags:
+      - 接口
+swagger: "2.0"

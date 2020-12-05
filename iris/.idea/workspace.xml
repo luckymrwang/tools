@@ -23,11 +23,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1792" />
-    <option name="height" value="1097" />
-  </component>
   <component name="ProjectId" id="1jwuMwauyk8KsxMmzXvh5vyhOMo" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -40,6 +35,8 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="ask.go.tool.to.install.GoMetaLinterTaskConsumer" value="true" />
@@ -52,7 +49,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -85,6 +82,17 @@
       <pattern value="^\QTestAS\E$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestEnv in tools/iris/controllers" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="iris" />
+      <working_directory value="$PROJECT_DIR$/controllers" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="tools/iris/controllers" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestEnv$" />
+      <method v="2" />
+    </configuration>
     <configuration name="TestMap in tools/iris/services (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="iris" />
       <working_directory value="$PROJECT_DIR$/services" />
@@ -96,26 +104,15 @@
       <pattern value="^\QTestMap\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestMap in tools/iris/services" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestPipe in tools/iris/controllers" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="iris" />
-      <working_directory value="$PROJECT_DIR$/services" />
+      <working_directory value="$PROJECT_DIR$/controllers" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="tools/iris/services" />
+      <package value="tools/iris/controllers" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestMap$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestPrifix in tools/iris/models" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="iris" />
-      <working_directory value="$PROJECT_DIR$/models" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="tools/iris/models" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestPrifix$" />
+      <pattern value="^TestPipe$" />
       <method v="2" />
     </configuration>
     <configuration name="TestResponseRecorder in tools/iris/controllers" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -131,32 +128,34 @@
     </configuration>
     <list>
       <item itemvalue="Go Build.go build tools/iris" />
-      <item itemvalue="Go Test.TestMap in tools/iris/services" />
-      <item itemvalue="Go Test.TestPrifix in tools/iris/models" />
-      <item itemvalue="Go Test.TestResponseRecorder in tools/iris/controllers" />
-      <item itemvalue="Go Test.TestMap in tools/iris/services (1)" />
       <item itemvalue="Go Test.TestAS in tools/iris/services" />
+      <item itemvalue="Go Test.TestEnv in tools/iris/controllers" />
+      <item itemvalue="Go Test.TestMap in tools/iris/services (1)" />
+      <item itemvalue="Go Test.TestPipe in tools/iris/controllers" />
+      <item itemvalue="Go Test.TestResponseRecorder in tools/iris/controllers" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestEnv in tools/iris/controllers" />
+        <item itemvalue="Go Test.TestPipe in tools/iris/controllers" />
         <item itemvalue="Go Test.TestAS in tools/iris/services" />
         <item itemvalue="Go Test.TestMap in tools/iris/services (1)" />
         <item itemvalue="Go Test.TestResponseRecorder in tools/iris/controllers" />
-        <item itemvalue="Go Test.TestPrifix in tools/iris/models" />
-        <item itemvalue="Go Test.TestMap in tools/iris/services" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -175,16 +174,10 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
-    <environment>
-      <map>
-        <entry key="GOPROXY" value="https://goproxy.io" />
-      </map>
-    </environment>
-    <proxy>https://goproxy.io</proxy>
+    <proxy>http://10.7.12.185:8089/repository/go-group/</proxy>
   </component>
   <component name="WindowStateProjectService">
     <state x="650" y="402" key="#Notifications" timestamp="1604727900937">
@@ -195,42 +188,42 @@
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
     <state width="695" height="466" key="DebuggerActiveHint/0.23.1792.1097@0.23.1792.1097" timestamp="1605005228710" />
-    <state width="1750" height="193" key="GridCell.Tab.0.bottom" timestamp="1605167699993">
+    <state width="1771" height="118" key="GridCell.Tab.0.bottom" timestamp="1607147064323">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
-    <state width="1750" height="193" key="GridCell.Tab.0.bottom/0.23.1792.1097@0.23.1792.1097" timestamp="1605167699993" />
-    <state width="1750" height="193" key="GridCell.Tab.0.center" timestamp="1605167699992">
+    <state width="1771" height="118" key="GridCell.Tab.0.bottom/0.23.1792.1097@0.23.1792.1097" timestamp="1607147064323" />
+    <state width="1771" height="118" key="GridCell.Tab.0.center" timestamp="1607147064322">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
-    <state width="1750" height="193" key="GridCell.Tab.0.center/0.23.1792.1097@0.23.1792.1097" timestamp="1605167699992" />
-    <state width="1750" height="193" key="GridCell.Tab.0.left" timestamp="1605167699992">
+    <state width="1771" height="118" key="GridCell.Tab.0.center/0.23.1792.1097@0.23.1792.1097" timestamp="1607147064322" />
+    <state width="1771" height="118" key="GridCell.Tab.0.left" timestamp="1607147064322">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
-    <state width="1750" height="193" key="GridCell.Tab.0.left/0.23.1792.1097@0.23.1792.1097" timestamp="1605167699992" />
-    <state width="1750" height="193" key="GridCell.Tab.0.right" timestamp="1605167699992">
+    <state width="1771" height="118" key="GridCell.Tab.0.left/0.23.1792.1097@0.23.1792.1097" timestamp="1607147064322" />
+    <state width="1771" height="118" key="GridCell.Tab.0.right" timestamp="1607147064323">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
-    <state width="1750" height="193" key="GridCell.Tab.0.right/0.23.1792.1097@0.23.1792.1097" timestamp="1605167699992" />
-    <state width="1750" height="193" key="GridCell.Tab.1.bottom" timestamp="1605167699881">
+    <state width="1771" height="118" key="GridCell.Tab.0.right/0.23.1792.1097@0.23.1792.1097" timestamp="1607147064323" />
+    <state width="1771" height="118" key="GridCell.Tab.1.bottom" timestamp="1607147064325">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
-    <state width="1750" height="193" key="GridCell.Tab.1.bottom/0.23.1792.1097@0.23.1792.1097" timestamp="1605167699881" />
-    <state width="1750" height="193" key="GridCell.Tab.1.center" timestamp="1605167699880">
+    <state width="1771" height="118" key="GridCell.Tab.1.bottom/0.23.1792.1097@0.23.1792.1097" timestamp="1607147064325" />
+    <state width="1771" height="118" key="GridCell.Tab.1.center" timestamp="1607147064324">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
-    <state width="1750" height="193" key="GridCell.Tab.1.center/0.23.1792.1097@0.23.1792.1097" timestamp="1605167699880" />
-    <state width="1750" height="193" key="GridCell.Tab.1.left" timestamp="1605167699880">
+    <state width="1771" height="118" key="GridCell.Tab.1.center/0.23.1792.1097@0.23.1792.1097" timestamp="1607147064324" />
+    <state width="1771" height="118" key="GridCell.Tab.1.left" timestamp="1607147064324">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
-    <state width="1750" height="193" key="GridCell.Tab.1.left/0.23.1792.1097@0.23.1792.1097" timestamp="1605167699880" />
-    <state width="1750" height="193" key="GridCell.Tab.1.right" timestamp="1605167699880">
+    <state width="1771" height="118" key="GridCell.Tab.1.left/0.23.1792.1097@0.23.1792.1097" timestamp="1607147064324" />
+    <state width="1771" height="118" key="GridCell.Tab.1.right" timestamp="1607147064324">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
-    <state width="1750" height="193" key="GridCell.Tab.1.right/0.23.1792.1097@0.23.1792.1097" timestamp="1605167699880" />
-    <state x="397" y="210" key="SettingsEditor" timestamp="1605155130295">
+    <state width="1771" height="118" key="GridCell.Tab.1.right/0.23.1792.1097@0.23.1792.1097" timestamp="1607147064324" />
+    <state x="397" y="210" key="SettingsEditor" timestamp="1606787926160">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
-    <state x="397" y="210" key="SettingsEditor/0.23.1792.1097@0.23.1792.1097" timestamp="1605155130295" />
+    <state x="397" y="210" key="SettingsEditor/0.23.1792.1097@0.23.1792.1097" timestamp="1606787926160" />
     <state width="896" height="548" key="XDebugger.FullValuePopup" timestamp="1604772662218">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
@@ -253,6 +246,11 @@
           <url>file://$PROJECT_DIR$/../../../pkg/mod/k8s.io/client-go@v0.18.2/tools/remotecommand/v3.go</url>
           <line>95</line>
           <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file:///usr/local/opt/go/libexec/src/net/http/transport_test.go</url>
+          <line>4843</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

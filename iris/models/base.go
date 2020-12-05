@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -36,6 +37,11 @@ func init() {
 	dsn := "root:@tcp(127.0.0.1:3306)/datahunter?charset=utf8mb4&parseTime=True&loc=Local"
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{Logger: newLogger})
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
+}
+
+type DemoParam struct {
+	Name string `json:"name"`
+	Age  int    `json:"age"`
 }

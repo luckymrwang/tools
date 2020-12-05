@@ -2,11 +2,17 @@ package routers
 
 import (
 	"fmt"
-	"github.com/iris-contrib/middleware/cors"
-	"github.com/kataras/iris/v12"
 	"io/ioutil"
 	"net/http"
 	"time"
+
+	"github.com/kataras/iris/v12/middleware/pprof"
+
+	"github.com/iris-contrib/middleware/cors"
+	"github.com/iris-contrib/swagger/v12"
+	"github.com/iris-contrib/swagger/v12/swaggerFiles"
+	"github.com/kataras/iris/v12"
+	"github.com/swaggo/swag"
 )
 
 func Init(app *iris.Application) {
@@ -32,6 +38,21 @@ func Init(app *iris.Application) {
 	app.Done(func(ctx iris.Context) {
 		fmt.Println("finished：", time.Since(t))
 		ctx.Next()
+	})
+	config := &swagger.Config{
+		URL: "http://localhost:8080/swagger/doc.json", //The url pointing to API definition
+	}
+	p := pprof.New()
+	app.Any("/debug/pprof", p)
+	app.Any("/debug/pprof/{action:path}", p)
+	// use swagger middleware to
+	app.Get("/swagger/{any:path}", swagger.CustomWrapHandler(config, swaggerFiles.Handler))
+	app.Get("/v2/api-docs", func(ctx iris.Context) {
+		doc, err := swag.ReadDoc()
+		if err != nil {
+			panic(err)
+		}
+		_, _ = ctx.Write([]byte(doc))
 	})
 	app.Get("/regionOne/iapps-service.yaml", iappserverYamlHandler)
 	hubBus := app.Party("/v1", crs).AllowMethods(iris.MethodOptions)

@@ -7,6 +7,11 @@ import (
 	"github.com/kataras/iris/v12"
 )
 
+// @title Swagger Example API
+// @version 1.0
+// @description This is a sample server celler server.
+// @host
+// @BasePath /api/v1
 func main() {
 	defer func() {
 		if r := recover(); r != nil {
