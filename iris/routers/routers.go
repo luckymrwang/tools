@@ -19,9 +19,9 @@ func Init(app *iris.Application) {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Println("recover:", r)
-			return
 		}
 	}()
+
 	crs := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"}, // allows everything, use that to change the hosts.
 		AllowCredentials: true,          // allows browser send cookie to service
@@ -104,6 +104,12 @@ func Hub(party iris.Party) {
 	WebsocketHub(party)
 }
 
-func p() {
+func p() string {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("recoverP:", r)
+		}
+	}()
 	panic("xxxddd")
+	return "panice after"
 }

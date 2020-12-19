@@ -16,7 +16,6 @@ func main() {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Println("main recover:", r)
-			return
 		}
 	}()
 	app := iris.New()
@@ -26,6 +25,7 @@ func main() {
 	app.Run(iris.Addr(":9090"))
 }
 
-func p() {
+func p() string {
 	panic("xxxddd")
+	return "panice after"
 }

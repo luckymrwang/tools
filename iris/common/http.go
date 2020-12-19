@@ -2,9 +2,12 @@ package common
 
 import (
 	"bytes"
+	"crypto/tls"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
+	"net"
 	"net/http"
 	"net/url"
 	"os"
@@ -12,10 +15,37 @@ import (
 	"time"
 )
 
+var (
+	client *http.Client
+
+	DefaultTransport = &http.Transport{
+		Proxy: http.ProxyFromEnvironment,
+		DialContext: (&net.Dialer{
+			Timeout:   30 * time.Second,
+			KeepAlive: 30 * time.Second,
+			DualStack: true,
+		}).DialContext,
+		ForceAttemptHTTP2:     true,
+		MaxIdleConns:          10,
+		MaxIdleConnsPerHost:   2,
+		IdleConnTimeout:       90 * time.Second,
+		TLSHandshakeTimeout:   10 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
+		TLSClientConfig:       &tls.Config{InsecureSkipVerify: true},
+	}
+)
+
 var DEFAULT_HTTP_TIMEOUT = 5 * time.Minute
 
-func HttpGet(url string, header *P, param *P) (body string, e error) {
-	r, err := HttpGetBytes(url, header, param)
+func init() {
+	client = &http.Client{Timeout: time.Duration(DEFAULT_HTTP_TIMEOUT), Transport: DefaultTransport}
+}
+
+func HttpGet(url string, header *P, param *P, tr *http.Transport) (body string, e error) {
+	if query := GetUrlQuery(param); !IsEmpty(query) {
+		url = fmt.Sprintf("%s?%s", url, query)
+	}
+	r, err := HttpGetBytes(url, header, param, tr)
 	if err != nil {
 		Error("HttpGet异常:", err.Error())
 	}
@@ -24,12 +54,33 @@ func HttpGet(url string, header *P, param *P) (body string, e error) {
 	return
 }
 
-func HttpGetBytes(url string, header *P, param *P) (body []byte, e error) {
-	return HttpDo("GET", url, header, param)
+func GetUrlQuery(params *P) (query string) {
+	if params == nil {
+		return
+	}
+
+	for key, val := range *params {
+		if strings.Contains(key, "[]") {
+			for _, v := range ToString(val) {
+				query += fmt.Sprintf("%v=%v&", key, v)
+			}
+		} else {
+			query += fmt.Sprintf("%v=%v&", key, val)
+		}
+	}
+
+	if len(query) > 0 {
+		query = query[0 : len(query)-1]
+	}
+	return
+}
+
+func HttpGetBytes(url string, header *P, param *P, tr *http.Transport) (body []byte, e error) {
+	return HttpDo("GET", url, header, param, tr)
 }
 
 func HttpPost(url string, header *P, param *P) (body string, err error) {
-	r, e := HttpDo("POST", url, header, param)
+	r, e := HttpDo("POST", url, header, param, nil)
 	if e != nil {
 		Error("HttpPost异常:", e.Error())
 		body = e.Error()
@@ -41,11 +92,10 @@ func HttpPost(url string, header *P, param *P) (body string, err error) {
 }
 
 func HttpDelete(url string, header *P, param *P) (body []byte, e error) {
-	return HttpDo("DELETE", url, header, param)
+	return HttpDo("DELETE", url, header, param, nil)
 }
 
-func HttpDo(method string, httpurl string, header *P, param *P) (body []byte, err error) {
-	client := &http.Client{Timeout: time.Duration(DEFAULT_HTTP_TIMEOUT)}
+func HttpDo(method string, httpurl string, header *P, param *P, tr *http.Transport) (body []byte, err error) {
 	var req *http.Request
 	vs := url.Values{}
 	if param != nil {
@@ -77,7 +127,18 @@ func HttpDo(method string, httpurl string, header *P, param *P) (body []byte, er
 	if method == "POST" {
 		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	}
-	resp, err := client.Do(req)
+	var resp *http.Response
+	if strings.Contains(httpurl, "https") {
+		httpsClient := *client
+		if tr != nil {
+			transport := *DefaultTransport
+			transport.TLSClientConfig = tr.TLSClientConfig
+			httpsClient.Transport = &transport
+		}
+		resp, err = httpsClient.Do(req)
+	} else {
+		resp, err = client.Do(req)
+	}
 	if err != nil {
 		Error("HttpDo异常:", err.Error())
 		return []byte(ToString(resp)), err
