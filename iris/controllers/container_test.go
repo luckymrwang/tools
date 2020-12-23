@@ -18,13 +18,24 @@ type Dog struct {
 }
 
 func TestHandleExecShell(t *testing.T) {
-	age := 0
+	age := 1
 	d := Dog{
 		Age: age,
 	}
 
 	b, _ := json.Marshal(d)
 	fmt.Println(string(b))
+	var dd Dog
+	err := json.Unmarshal(b, &dd)
+	if err != nil {
+		fmt.Println("dd", err)
+	}
+
+	ddd := new(Dog)
+	err = json.Unmarshal(b, ddd)
+	if err != nil {
+		fmt.Println("ddd", err)
+	}
 }
 
 func TestGet(t *testing.T) {
