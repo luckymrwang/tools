@@ -3,6 +3,7 @@ module tools/iris
 go 1.14
 
 require (
+	github.com/BurntSushi/graphics-go v0.0.0-20160129215708-b43f31a4a966
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/emicklei/go-restful v2.12.0+incompatible
 	github.com/gorilla/websocket v1.4.2
