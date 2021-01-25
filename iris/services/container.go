@@ -40,3 +40,25 @@ func (s *ContainerService) ExecShell(namespace, pod, container string) (string, 
 	request.SetAttribute("container", container)
 	return common.ExecShell(k8sClient, restConfig, request)
 }
+
+func (s *ContainerService) CopyFromPod(namespace, pod, container, srcPath string) (string, error) {
+	kubeConfig, err := ioutil.ReadFile(kubeConfigPath)
+	if err != nil {
+		return "", fmt.Errorf("读取 kube config 失败：%s", err.Error())
+	}
+	restConfig, err := clientcmd.RESTConfigFromKubeConfig(kubeConfig)
+	if err != nil {
+		return "", fmt.Errorf("获取 k8s config 失败：%s", err.Error())
+	}
+	k8sClient, err := common.GetK8sClient(string(kubeConfig))
+	if err != nil {
+		return "", fmt.Errorf("获取 k8s 客户端失败：%s", err.Error())
+	}
+	destPath := "./uploads"
+	err = common.CopyFromPod(k8sClient, restConfig, namespace, pod, container, srcPath, destPath)
+	if err != nil {
+		return "", err
+	}
+
+	return "", nil
+}
