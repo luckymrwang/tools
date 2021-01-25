@@ -1,3 +1,4 @@
+require('skyapm-nodejs').start({ serviceName: 'nodejs-demo2', directServers: '10.48.51.135:21594' });
 const express = require('express')
 const app = express()
 const port = 3000
