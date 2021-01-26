@@ -48,6 +48,7 @@ func (c *ContainerController) CopyFromPod(ctx iris.Context) {
 	srcPath := ctx.URLParam("src_path")
 	_, err := services.GetContainerService(ctx).CopyFromPod(namespace, pod, container, srcPath)
 	if err != nil {
+		c.EchoErr(ctx, err)
 		return
 	}
 	c.EchoJsonOk(ctx)
@@ -70,6 +71,7 @@ func (c *ContainerController) Publish(ctx iris.Context) {
 	srcPath := ctx.URLParam("src_path")
 	_, err := services.GetContainerService(ctx).PublishNodeJS(namespace, pod, container, srcPath)
 	if err != nil {
+		c.EchoErr(ctx, err)
 		return
 	}
 	c.EchoJsonOk(ctx)
