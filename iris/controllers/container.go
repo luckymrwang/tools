@@ -52,3 +52,25 @@ func (c *ContainerController) CopyFromPod(ctx iris.Context) {
 	}
 	c.EchoJsonOk(ctx)
 }
+
+// @Summary Demo
+// @Description Demoxx
+// @Tags 接口
+// @Accept json
+// @Produce json
+// @Param namespace path string true "namespace"
+// @Param pod path string true "pod"
+// @Param container path string true "container"
+// @Success 200 {string} string	"ok"
+// @Router /namespaces/{namespace}/pods/{pod}/containers/{container}/publish [get]
+func (c *ContainerController) Publish(ctx iris.Context) {
+	namespace := ctx.Params().Get("namespace")
+	pod := ctx.Params().Get("pod")
+	container := ctx.Params().Get("container")
+	srcPath := ctx.URLParam("src_path")
+	_, err := services.GetContainerService(ctx).PublishNodeJS(namespace, pod, container, srcPath)
+	if err != nil {
+		return
+	}
+	c.EchoJsonOk(ctx)
+}

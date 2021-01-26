@@ -3,10 +3,10 @@ package services
 import (
 	"fmt"
 	"io/ioutil"
+
 	"tools/iris/common"
 
 	"github.com/emicklei/go-restful"
-
 	"github.com/kataras/iris/v12"
 	"k8s.io/client-go/tools/clientcmd"
 )
@@ -66,6 +66,30 @@ func (s *ContainerService) CopyFromPod(namespace, pod, container, srcPath string
 	content := common.ReadFile(localPath)
 	mergeContent := prefix + "\n" + content
 	err = common.WriteFile(localPath, []byte(mergeContent))
+	if err != nil {
+		return "", err
+	}
+
+	return mergeContent, nil
+}
+
+func (s *ContainerService) PublishNodeJS(namespace, pod, container, srcPath string) (string, error) {
+	data, err := s.CopyFromPod(namespace, pod, container, srcPath)
+	if err != nil {
+		return "", err
+	}
+	deployName := "banana"
+	fileInfo := common.Pathinfo(srcPath)
+	configmapName := fmt.Sprintf("%s-nodejs", deployName)
+
+	_ = new(ConfigMapService).Delete(namespace, configmapName)
+	// create configmap
+	_, err = new(ConfigMapService).Add(namespace, configmapName, fmt.Sprintf("%v.%v", fileInfo["filename"], fileInfo["extension"]), data)
+	if err != nil {
+		return "", err
+	}
+	// create deployment
+	_, err = new(DeploymentService).Update(namespace, deployName, srcPath)
 	if err != nil {
 		return "", err
 	}
