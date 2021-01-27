@@ -34,10 +34,10 @@ func (s *DeploymentService) Update(namespace, name, srcPath string) (*v1.Deploym
 	initContainer := corev1.Container{
 		Name:    "sidecar",
 		Image:   containerImage,
-		Command: []string{"cp", "-r", "/node_modules", "/node_modules"},
+		Command: []string{"/bin/sh", "-c", "cp -r /node_modules/* /node/modules"},
 		VolumeMounts: []corev1.VolumeMount{{
 			Name:      "sidecar",
-			MountPath: "/node_modules",
+			MountPath: "/node/modules",
 		}},
 		ImagePullPolicy: "IfNotPresent",
 	}

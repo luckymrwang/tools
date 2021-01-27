@@ -11,7 +11,8 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
-var kubeConfigPath = "/Users/sino/.kube/config"
+//var kubeConfigPath = "/Users/sino/.kube/config"
+var kubeConfigPath = "/Users/sino/Documents/luckymrwang/kubernetes/.kube/k8s1.config"
 
 type ContainerService struct {
 	Ctx iris.Context
@@ -43,7 +44,7 @@ func (s *ContainerService) ExecShell(namespace, pod, container string) (string, 
 
 func (s *ContainerService) CopyFromPod(namespace, pod, container, srcPath string) (string, error) {
 	destPath := "./uploads"
-	prefix := `require('skyapm-nodejs').start({ serviceName: 'nodejs-demo2', directServers: '10.48.51.135:21594' });`
+	prefix := `require('skyapm-nodejs').start({ serviceName: 'nodejs-demo-code', directServers: '10.48.51.135:21594' });`
 
 	kubeConfig, err := ioutil.ReadFile(kubeConfigPath)
 	if err != nil {
