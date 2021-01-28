@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: banana
+spec:
+  selector:
+    matchLabels:
+      app: banana
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: banana
+    spec:
+      containers:
+        - name: banana
+          image: node:v1
+          ports:
+            - containerPort: 3000

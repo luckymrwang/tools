@@ -12,6 +12,7 @@ import (
 )
 
 //var kubeConfigPath = "/Users/sino/.kube/config"
+
 var kubeConfigPath = "/Users/sino/Documents/luckymrwang/kubernetes/.kube/k8s1.config"
 
 type ContainerService struct {

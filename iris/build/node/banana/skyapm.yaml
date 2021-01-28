@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skyapm
+spec:
+  selector:
+    matchLabels:
+      app: skyapm
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: skyapm
+    spec:
+      containers:
+        - command: ["cp", "-r", "/node_modules", "/"]
+          name: sidecar
+          image: skyapm:v2.0.1
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /
+              name: sidecar
+      volumes:
+        - emptyDir: {}
+          name: sidecar
