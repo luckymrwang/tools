@@ -27,5 +27,4 @@ func main() {
 
 func p() string {
 	panic("xxxddd")
-	return "panice after"
 }
