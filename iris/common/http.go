@@ -131,9 +131,9 @@ func HttpDo(method string, httpurl string, header *P, param *P, tr *http.Transpo
 	if strings.Contains(httpurl, "https") {
 		httpsClient := *client
 		if tr != nil {
-			transport := *DefaultTransport
+			transport := DefaultTransport
 			transport.TLSClientConfig = tr.TLSClientConfig
-			httpsClient.Transport = &transport
+			httpsClient.Transport = transport
 		}
 		resp, err = httpsClient.Do(req)
 	} else {
