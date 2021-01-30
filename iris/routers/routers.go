@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/kataras/iris/v12/middleware/pprof"
+	"github.com/kataras/iris/v12/middleware/recover"
 
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/iris-contrib/swagger/v12"
@@ -16,12 +17,6 @@ import (
 )
 
 func Init(app *iris.Application) {
-	defer func() {
-		if r := recover(); r != nil {
-			fmt.Println("recover:", r)
-		}
-	}()
-
 	crs := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"}, // allows everything, use that to change the hosts.
 		AllowCredentials: true,          // allows browser send cookie to service
@@ -29,6 +24,8 @@ func Init(app *iris.Application) {
 		AllowedHeaders:   []string{"*"},
 		ExposedHeaders:   []string{"Acceppt", "Content-type", "Content-Length", "Accept-Encoding", "X-CSRF-Token", "Authorization"},
 	})
+
+	app.Use(recover.New())
 	// app.Get("/", before, mainHandler, after)
 	app.Use(func(ctx iris.Context) {
 		time.Now()
@@ -102,14 +99,4 @@ func Hub(party iris.Party) {
 	DemoHub(party)
 	ContainerHub(party)
 	WebsocketHub(party)
-}
-
-func p() string {
-	defer func() {
-		if r := recover(); r != nil {
-			fmt.Println("recoverP:", r)
-		}
-	}()
-	panic("xxxddd")
-	return "panice after"
 }

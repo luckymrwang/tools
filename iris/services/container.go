@@ -11,9 +11,18 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
-//var kubeConfigPath = "/Users/sino/.kube/config"
+var (
+	kubeConfigLocalPath = "/Users/sino/.kube/config"
+	kubeConfigPath      = "/Users/sino/Documents/luckymrwang/kubernetes/.kube"
+)
 
-var kubeConfigPath = "/Users/sino/Documents/luckymrwang/kubernetes/.kube/k8s1.config"
+func getKubeConfig(kubeconfig string) string {
+	if common.IsEmpty(kubeconfig) {
+		return kubeConfigLocalPath
+	}
+
+	return fmt.Sprintf("%s/%s.config", kubeConfigPath, kubeconfig)
+}
 
 type ContainerService struct {
 	Ctx iris.Context
@@ -23,8 +32,8 @@ func GetContainerService(ctx iris.Context) *ContainerService {
 	return &ContainerService{Ctx: ctx}
 }
 
-func (s *ContainerService) ExecShell(namespace, pod, container string) (string, error) {
-	kubeConfig, err := ioutil.ReadFile(kubeConfigPath)
+func (s *ContainerService) ExecShell(kubeconfig, namespace, pod, container string) (string, error) {
+	kubeConfig, err := ioutil.ReadFile(getKubeConfig(kubeconfig))
 	if err != nil {
 		return "", fmt.Errorf("读取 kube config 失败：%s", err.Error())
 	}
@@ -43,11 +52,11 @@ func (s *ContainerService) ExecShell(namespace, pod, container string) (string, 
 	return common.ExecShell(k8sClient, restConfig, request)
 }
 
-func (s *ContainerService) CopyFromPod(namespace, pod, container, srcPath string) (string, error) {
+func (s *ContainerService) CopyFromPod(kubeconfig, namespace, pod, container, srcPath string) (string, error) {
 	destPath := "./uploads"
 	prefix := `require('skyapm-nodejs').start({ serviceName: 'nodejs-demo-code', directServers: '10.48.51.135:21594' });`
 
-	kubeConfig, err := ioutil.ReadFile(kubeConfigPath)
+	kubeConfig, err := ioutil.ReadFile(getKubeConfig(kubeconfig))
 	if err != nil {
 		return "", fmt.Errorf("读取 kube config 失败：%s", err.Error())
 	}
@@ -75,8 +84,8 @@ func (s *ContainerService) CopyFromPod(namespace, pod, container, srcPath string
 	return mergeContent, nil
 }
 
-func (s *ContainerService) PublishNodeJS(namespace, pod, container, srcPath string) (string, error) {
-	data, err := s.CopyFromPod(namespace, pod, container, srcPath)
+func (s *ContainerService) PublishNodeJS(kubeconfig, namespace, pod, container, srcPath string) (string, error) {
+	data, err := s.CopyFromPod(kubeconfig, namespace, pod, container, srcPath)
 	if err != nil {
 		return "", err
 	}
@@ -84,14 +93,14 @@ func (s *ContainerService) PublishNodeJS(namespace, pod, container, srcPath stri
 	fileInfo := common.Pathinfo(srcPath)
 	configmapName := fmt.Sprintf("%s-nodejs", deployName)
 
-	_ = new(ConfigMapService).Delete(namespace, configmapName)
+	_ = new(ConfigMapService).Delete(kubeconfig, namespace, configmapName)
 	// create configmap
-	_, err = new(ConfigMapService).Add(namespace, configmapName, fmt.Sprintf("%v.%v", fileInfo["filename"], fileInfo["extension"]), data)
+	_, err = new(ConfigMapService).Add(kubeconfig, namespace, configmapName, fmt.Sprintf("%v.%v", fileInfo["filename"], fileInfo["extension"]), data)
 	if err != nil {
 		return "", err
 	}
 	// create deployment
-	_, err = new(DeploymentService).Update(namespace, deployName, srcPath)
+	_, err = new(DeploymentService).Update(kubeconfig, namespace, deployName, srcPath)
 	if err != nil {
 		return "", err
 	}

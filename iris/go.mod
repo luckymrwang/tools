@@ -11,6 +11,7 @@ require (
 	github.com/iris-contrib/middleware/cors v0.0.0-20200913183508-5d1bed0e6ea4
 	github.com/iris-contrib/swagger/v12 v12.0.1
 	github.com/k0kubun/colorstring v0.0.0-20150214042306-9440f1994b88 // indirect
+	github.com/kataras/iris v0.0.2
 	github.com/kataras/iris/v12 v12.2.0-alpha
 	github.com/onsi/gomega v1.8.1 // indirect
 	github.com/swaggo/swag v1.6.5

@@ -69,3 +69,5 @@ clean:
 
 .PHONY: all fmt lint check test build image clean
 
+help:
+	@echo "make format and building binary executable file"

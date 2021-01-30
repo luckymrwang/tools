@@ -16,8 +16,8 @@ type DeploymentService struct {
 	Ctx iris.Context
 }
 
-func (s *DeploymentService) Update(namespace, name, srcPath string) (*v1.Deployment, error) {
-	kubeConfig, err := ioutil.ReadFile(kubeConfigPath)
+func (s *DeploymentService) Update(kubeconfig, namespace, name, srcPath string) (*v1.Deployment, error) {
+	kubeConfig, err := ioutil.ReadFile(getKubeConfig(kubeconfig))
 	if err != nil {
 		return nil, fmt.Errorf("读取 kube config 失败：%s", err.Error())
 	}
@@ -31,6 +31,11 @@ func (s *DeploymentService) Update(namespace, name, srcPath string) (*v1.Deploym
 	}
 
 	containerImage := "skyapm:v2.0.1"
+	imagePullPolicy := "IfNotPresent"
+	if !common.IsEmpty(kubeconfig) {
+		containerImage = fmt.Sprintf("10.48.51.135:5000/com.inspur/incloudos-docker/%s", containerImage)
+		imagePullPolicy = "Always"
+	}
 	initContainer := corev1.Container{
 		Name:    "sidecar",
 		Image:   containerImage,
@@ -39,7 +44,7 @@ func (s *DeploymentService) Update(namespace, name, srcPath string) (*v1.Deploym
 			Name:      "sidecar",
 			MountPath: "/node/modules",
 		}},
-		ImagePullPolicy: "IfNotPresent",
+		ImagePullPolicy: corev1.PullPolicy(imagePullPolicy),
 	}
 	podSpec := deploy.Spec.Template.Spec
 	if len(podSpec.InitContainers) == 0 {

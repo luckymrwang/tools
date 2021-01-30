@@ -24,7 +24,8 @@ func (c *ContainerController) HandleExecShell(ctx iris.Context) {
 	namespace := ctx.Params().Get("namespace")
 	pod := ctx.Params().Get("pod")
 	container := ctx.Params().Get("container")
-	sessionID, err := services.GetContainerService(ctx).ExecShell(namespace, pod, container)
+	kubeconfig := ctx.URLParam("kubeconfig")
+	sessionID, err := services.GetContainerService(ctx).ExecShell(kubeconfig, namespace, pod, container)
 	if err != nil {
 		return
 	}
@@ -46,7 +47,8 @@ func (c *ContainerController) CopyFromPod(ctx iris.Context) {
 	pod := ctx.Params().Get("pod")
 	container := ctx.Params().Get("container")
 	srcPath := ctx.URLParam("src_path")
-	_, err := services.GetContainerService(ctx).CopyFromPod(namespace, pod, container, srcPath)
+	kubeconfig := ctx.URLParam("kubeconfig")
+	_, err := services.GetContainerService(ctx).CopyFromPod(kubeconfig, namespace, pod, container, srcPath)
 	if err != nil {
 		c.EchoErr(ctx, err)
 		return
@@ -69,7 +71,8 @@ func (c *ContainerController) Publish(ctx iris.Context) {
 	pod := ctx.Params().Get("pod")
 	container := ctx.Params().Get("container")
 	srcPath := ctx.URLParam("src_path")
-	_, err := services.GetContainerService(ctx).PublishNodeJS(namespace, pod, container, srcPath)
+	kubeconfig := ctx.URLParam("kubeconfig")
+	_, err := services.GetContainerService(ctx).PublishNodeJS(kubeconfig, namespace, pod, container, srcPath)
 	if err != nil {
 		c.EchoErr(ctx, err)
 		return

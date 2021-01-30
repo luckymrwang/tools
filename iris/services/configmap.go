@@ -14,8 +14,8 @@ import (
 type ConfigMapService struct {
 }
 
-func (s *ConfigMapService) Add(namespace, name, key, data string) (*corev1.ConfigMap, error) {
-	kubeConfig, err := ioutil.ReadFile(kubeConfigPath)
+func (s *ConfigMapService) Add(kubeconfig, namespace, name, key, data string) (*corev1.ConfigMap, error) {
+	kubeConfig, err := ioutil.ReadFile(getKubeConfig(kubeconfig))
 	if err != nil {
 		return nil, fmt.Errorf("读取 kube config 失败：%s", err.Error())
 	}
@@ -38,8 +38,8 @@ func (s *ConfigMapService) Add(namespace, name, key, data string) (*corev1.Confi
 	return configmap, nil
 }
 
-func (s *ConfigMapService) Delete(namespace, name string) error {
-	kubeConfig, err := ioutil.ReadFile(kubeConfigPath)
+func (s *ConfigMapService) Delete(kubeconfig, namespace, name string) error {
+	kubeConfig, err := ioutil.ReadFile(getKubeConfig(kubeconfig))
 	if err != nil {
 		return fmt.Errorf("读取 kube config 失败：%s", err.Error())
 	}
