@@ -3,6 +3,7 @@ package services
 import (
 	"fmt"
 	"io/ioutil"
+	"time"
 
 	"tools/iris/common"
 
@@ -54,7 +55,7 @@ func (s *ContainerService) ExecShell(kubeconfig, namespace, pod, container strin
 
 func (s *ContainerService) CopyFromPod(kubeconfig, namespace, pod, container, srcPath string) (string, error) {
 	destPath := "./uploads"
-	prefix := `require('skyapm-nodejs').start({ serviceName: 'nodejs-demo-code', directServers: '10.48.51.135:21594' });`
+	prefix := fmt.Sprintf(`require('skyapm-nodejs').start({ serviceName: 'nodejs-demo-code-%s', directServers: '10.48.51.135:21594' });`, kubeconfig+time.Now().Format("2006-01-02T15:04:05"))
 
 	kubeConfig, err := ioutil.ReadFile(getKubeConfig(kubeconfig))
 	if err != nil {
