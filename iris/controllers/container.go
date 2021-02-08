@@ -41,7 +41,7 @@ func (c *ContainerController) HandleExecShell(ctx iris.Context) {
 // @Param pod path string true "pod"
 // @Param container path string true "container"
 // @Success 200 {string} string	"ok"
-// @Router /namespaces/{namespace}/pods/{pod}/containers/{container}/copy [get]
+// @Router /namespaces/{namespace}/pods/{pod}/containers/{container}/copy [put]
 func (c *ContainerController) CopyFromPod(ctx iris.Context) {
 	namespace := ctx.Params().Get("namespace")
 	pod := ctx.Params().Get("pod")
@@ -65,7 +65,7 @@ func (c *ContainerController) CopyFromPod(ctx iris.Context) {
 // @Param pod path string true "pod"
 // @Param container path string true "container"
 // @Success 200 {string} string	"ok"
-// @Router /namespaces/{namespace}/pods/{pod}/containers/{container}/publish [get]
+// @Router /namespaces/{namespace}/pods/{pod}/containers/{container}/publish [put]
 func (c *ContainerController) Publish(ctx iris.Context) {
 	namespace := ctx.Params().Get("namespace")
 	pod := ctx.Params().Get("pod")

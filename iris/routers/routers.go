@@ -98,5 +98,6 @@ func after(ctx iris.Context) {
 func Hub(party iris.Party) {
 	DemoHub(party)
 	ContainerHub(party)
+	DeploymentHub(party)
 	WebsocketHub(party)
 }

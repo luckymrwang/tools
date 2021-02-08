@@ -101,7 +101,7 @@ func (s *ContainerService) PublishNodeJS(kubeconfig, namespace, pod, container, 
 		return "", err
 	}
 	// create deployment
-	_, err = new(DeploymentService).Update(kubeconfig, namespace, deployName, srcPath)
+	_, err = new(DeploymentService).InjectNodejs(kubeconfig, namespace, deployName, srcPath)
 	if err != nil {
 		return "", err
 	}
