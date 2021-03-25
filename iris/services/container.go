@@ -55,7 +55,7 @@ func (s *ContainerService) ExecShell(kubeconfig, namespace, pod, container strin
 
 func (s *ContainerService) CopyFromPod(kubeconfig, namespace, pod, container, srcPath string) (string, error) {
 	destPath := "./uploads"
-	prefix := fmt.Sprintf(`require('skyapm-nodejs').start({ serviceName: 'nodejs-demo-code-%s', directServers: '10.48.51.135:21594' });`, kubeconfig+time.Now().Format("2006-01-02T15:04:05"))
+	prefix := fmt.Sprintf(`require('skyapm-nodejs').start({ serviceName: 'nodejs-demo-code-%s', directServers: '10.48.51.135:31800' });`, kubeconfig+time.Now().Format("2006-01-02T15:04:05"))
 
 	kubeConfig, err := ioutil.ReadFile(getKubeConfig(kubeconfig))
 	if err != nil {
@@ -90,7 +90,7 @@ func (s *ContainerService) PublishNodeJS(kubeconfig, namespace, pod, container, 
 	if err != nil {
 		return "", err
 	}
-	deployName := "banana"
+	deployName := "icm-ui"
 	fileInfo := common.Pathinfo(srcPath)
 	configmapName := fmt.Sprintf("%s-nodejs", deployName)
 
