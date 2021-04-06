@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/kataras/iris/v12/middleware/pprof"
-	"github.com/kataras/iris/v12/middleware/recover"
+	irisrecover "github.com/kataras/iris/v12/middleware/recover"
 
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/iris-contrib/swagger/v12"
@@ -25,7 +25,7 @@ func Init(app *iris.Application) {
 		ExposedHeaders:   []string{"Acceppt", "Content-type", "Content-Length", "Accept-Encoding", "X-CSRF-Token", "Authorization"},
 	})
 
-	app.Use(recover.New())
+	app.Use(irisrecover.New())
 	// app.Get("/", before, mainHandler, after)
 	app.Use(func(ctx iris.Context) {
 		time.Now()

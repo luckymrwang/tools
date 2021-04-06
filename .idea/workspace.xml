@@ -29,7 +29,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" path="/usr/local/Cellar/go/1.15.2/libexec" />
+  <component name="GOROOT" path="/usr/local/Cellar/go/1.16/libexec" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -57,12 +57,12 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
-  <component name="RunManager" selected="Go Build.go build tools">
+  <component name="RunManager" selected="Go Build.go build tools/iris">
     <configuration name="go build example2.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="tools" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -81,12 +81,23 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
+    <configuration name="go build tools/iris" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="tools" />
+      <working_directory value="$PROJECT_DIR$/iris" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/iris/main.go" />
+      <package value="tools/iris" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Go Build.go build example2.go" />
       <item itemvalue="Go Build.go build tools" />
+      <item itemvalue="Go Build.go build tools/iris" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build tools/iris" />
         <item itemvalue="Go Build.go build tools" />
         <item itemvalue="Go Build.go build example2.go" />
       </list>
@@ -100,10 +111,10 @@
     <proxy>http://10.7.12.185:8089/repository/go-group/</proxy>
   </component>
   <component name="WindowStateProjectService">
-    <state x="496" y="223" key="#GOROOT" timestamp="1611107527651">
+    <state x="496" y="223" key="#GOROOT" timestamp="1617436065074">
       <screen x="0" y="23" width="1792" height="1048" />
     </state>
-    <state x="496" y="223" key="#GOROOT/0.23.1792.1048@0.23.1792.1048" timestamp="1611107527651" />
+    <state x="496" y="223" key="#GOROOT/0.23.1792.1048@0.23.1792.1048" timestamp="1617436065074" />
     <state x="480" y="202" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1611564220621">
       <screen x="0" y="23" width="1792" height="1048" />
     </state>
@@ -112,22 +123,22 @@
       <screen x="0" y="23" width="1792" height="1048" />
     </state>
     <state x="770" y="312" key="EnvironmentVariablesDialog/0.23.1792.1048@0.23.1792.1048" timestamp="1611558570511" />
-    <state width="1750" height="148" key="GridCell.Tab.0.bottom" timestamp="1611564287479">
+    <state width="1750" height="456" key="GridCell.Tab.0.bottom" timestamp="1617436987419">
       <screen x="0" y="23" width="1792" height="1048" />
     </state>
-    <state width="1750" height="148" key="GridCell.Tab.0.bottom/0.23.1792.1048@0.23.1792.1048" timestamp="1611564287479" />
-    <state width="1750" height="148" key="GridCell.Tab.0.center" timestamp="1611564287479">
+    <state width="1750" height="456" key="GridCell.Tab.0.bottom/0.23.1792.1048@0.23.1792.1048" timestamp="1617436987419" />
+    <state width="1750" height="456" key="GridCell.Tab.0.center" timestamp="1617436987418">
       <screen x="0" y="23" width="1792" height="1048" />
     </state>
-    <state width="1750" height="148" key="GridCell.Tab.0.center/0.23.1792.1048@0.23.1792.1048" timestamp="1611564287479" />
-    <state width="1750" height="148" key="GridCell.Tab.0.left" timestamp="1611564287478">
+    <state width="1750" height="456" key="GridCell.Tab.0.center/0.23.1792.1048@0.23.1792.1048" timestamp="1617436987418" />
+    <state width="1750" height="456" key="GridCell.Tab.0.left" timestamp="1617436987418">
       <screen x="0" y="23" width="1792" height="1048" />
     </state>
-    <state width="1750" height="148" key="GridCell.Tab.0.left/0.23.1792.1048@0.23.1792.1048" timestamp="1611564287478" />
-    <state width="1750" height="148" key="GridCell.Tab.0.right" timestamp="1611564287479">
+    <state width="1750" height="456" key="GridCell.Tab.0.left/0.23.1792.1048@0.23.1792.1048" timestamp="1617436987418" />
+    <state width="1750" height="456" key="GridCell.Tab.0.right" timestamp="1617436987419">
       <screen x="0" y="23" width="1792" height="1048" />
     </state>
-    <state width="1750" height="148" key="GridCell.Tab.0.right/0.23.1792.1048@0.23.1792.1048" timestamp="1611564287479" />
+    <state width="1750" height="456" key="GridCell.Tab.0.right/0.23.1792.1048@0.23.1792.1048" timestamp="1617436987419" />
     <state width="1750" height="148" key="GridCell.Tab.1.bottom" timestamp="1611564287479">
       <screen x="0" y="23" width="1792" height="1048" />
     </state>
