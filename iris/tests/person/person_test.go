@@ -47,3 +47,15 @@ func TestPublishWrongResponseStatus(t *testing.T) {
 
 	fmt.Println("reps:", resp)
 }
+
+type intee interface {
+	Method()
+	Json(a string) string
+}
+
+func TestIntee(t *testing.T) {
+	var tee intee
+	fmt.Println(tee)
+	tee.Method()
+	fmt.Println("xx")
+}

@@ -11,6 +11,7 @@ import (
 	"os"
 	"os/exec"
 	"testing"
+	"time"
 )
 
 type Dog struct {
@@ -87,4 +88,40 @@ func TestPipe(t *testing.T) {
 func TestEnv(t *testing.T) {
 	os.Setenv("FOO", "1")
 	fmt.Println("FOO:", os.Getenv("FOO"))
+}
+
+func TestJson(t *testing.T) {
+	type FruitBasket struct {
+		Name    string
+		Fruit   []string
+		Id      int64 `json:"ref"` // 声明对应的json key
+		Created time.Time
+	}
+
+	jsonData := []byte(`
+    {
+        "Name": "Standard",
+        "Fruit": [
+             "Apple",
+            "Banana",
+            "Orange"
+        ],
+        "ref": 999,
+        "Created": "2018-04-09T23:00:00Z"
+    }`)
+
+	var basket FruitBasket
+	err := json.Unmarshal(jsonData, &basket)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(basket.Name, basket.Fruit, basket.Id)
+
+	data, err := json.Marshal(jsonData)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	fmt.Println("jsonData:", string(jsonData))
+	fmt.Println("jsonMarshal:", string(data))
 }
