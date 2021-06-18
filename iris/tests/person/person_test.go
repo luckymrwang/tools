@@ -1,6 +1,7 @@
 package person
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -56,6 +57,27 @@ type intee interface {
 func TestIntee(t *testing.T) {
 	var tee intee
 	fmt.Println(tee)
-	tee.Method()
 	fmt.Println("xx")
+
+	encodeString := "CjVmZmNhMDY0NjBmOTk0YjcwYjJiOWUyNDM3ZWM4N2YwOS4zNy4xNjIwNzIzODg2ODM1MDAwMRI1ZmZjYTA2NDYwZjk5NGI3MGIyYjllMjQzN2VjODdmMDkuMzcuMTYyMDcyMzg4NjgzNTAwMDAaVxD///////////8BGPPVr9WVLyD21a/VlS8yAS9IA1ABYiEKA3VybBIaaHR0cDovLzEwLjQ4LjUxLjEzNTozMTk1Ni9iEgoLaHR0cC5tZXRob2QSA0dFVCIkZmFmNGQ1ZjEtZWRlYS00MzQ2LWI5MDgtNGEzNTFjMDIwMzM3Ki4zMmE3ZWQ4ODMxYTA0NzY0YjVmZjYxOWViYzJjYzkyZEAxMC4yMzMuMTIxLjYx"
+	decodeBytes, err := base64.StdEncoding.DecodeString(encodeString)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(decodeBytes))
+
+	base64er := base64.RawURLEncoding
+
+	decoder_buf, _ := base64er.DecodeString(encodeString)
+	fmt.Println(string(decoder_buf))
+}
+
+func TestError(t *testing.T) {
+	err := errfmt()
+	fmt.Println(err)
+}
+
+func errfmt() error {
+	err := fmt.Errorf("88")
+	return fmt.Errorf("err: %s", err)
 }
