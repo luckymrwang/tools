@@ -32,6 +32,15 @@ func TestDH_Corp_OrderPager(t *testing.T) {
 	}
 }
 
+func TestTM(t *testing.T) {
+	dh := &DH_Corp{}
+	err := new(DH_Corp).TM(dh)
+	if err != nil {
+		t.Error(err)
+	}
+	return
+}
+
 type Jac struct {
 	F1 float64 `json:"f_1"`
 	F2 float64 `json:"f_2"`
