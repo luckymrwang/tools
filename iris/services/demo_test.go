@@ -1,12 +1,13 @@
 package services
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
+	"net"
 	"strconv"
 	"testing"
 	"unicode/utf8"
-	"encoding/json"
 )
 
 func TestEcho(t *testing.T) {
@@ -15,11 +16,14 @@ func TestEcho(t *testing.T) {
 }
 
 func TestGet(t *testing.T) {
+	_, cidr, err := net.ParseCIDR("10.233.63.0/18")
+	fmt.Println(cidr.String())
+
 	s := "xx1x王"
 	fmt.Println(utf8.RuneCountInString(s))
 	fmt.Println(len(s))
 
-	_, err := strconv.ParseInt("10000000000", 10, 64)
+	_, err = strconv.ParseInt("10000000000", 10, 64)
 	if err != nil {
 		t.Error(err)
 		return
@@ -45,7 +49,7 @@ func TestMap(t *testing.T) {
 	log.Println(string(buf), err)
 }
 
-func TestAS(t *testing.T)  {
+func TestAS(t *testing.T) {
 	as := new(AS)
 	fmt.Println(*as)
 	ass := AS{}
