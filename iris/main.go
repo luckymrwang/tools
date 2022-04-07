@@ -38,13 +38,15 @@ func main() {
 
 	routers.Init(app)
 
-	smallest, err := findHostMTU(MTUIfacePattern)
-	if err == nil {
-		fmt.Printf("the smallest is %v\n", smallest)
-	} else {
-		fmt.Printf("err : %v\n", err)
-	}
-	//app.Run(iris.Addr(":9090"))
+	//ticker()
+
+	//smallest, err := findHostMTU(MTUIfacePattern)
+	//if err == nil {
+	//	fmt.Printf("the smallest is %v\n", smallest)
+	//} else {
+	//	fmt.Printf("err : %v\n", err)
+	//}
+	app.Run(iris.Addr(":9090"))
 }
 
 func p() string {

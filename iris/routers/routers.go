@@ -3,7 +3,6 @@ package routers
 import (
 	"fmt"
 	"io/ioutil"
-	"net/http"
 	"time"
 
 	"github.com/kataras/iris/v12/middleware/pprof"
@@ -55,9 +54,9 @@ func Init(app *iris.Application) {
 	hubBus := app.Party("/v1", crs).AllowMethods(iris.MethodOptions)
 	Hub(hubBus)
 
-	app.Use(iris.FromStd(func(w http.ResponseWriter, r *http.Request) {
-		println("Request path: " + r.URL.Path)
-	}))
+	//app.Use(iris.FromStd(func(w http.ResponseWriter, r *http.Request) {
+	//	println("Request path: " + r.URL.Path)
+	//}))
 }
 
 func iappserverYamlHandler(ctx iris.Context) {

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -124,4 +125,53 @@ func TestJson(t *testing.T) {
 	}
 	fmt.Println("jsonData:", string(jsonData))
 	fmt.Println("jsonMarshal:", string(data))
+}
+
+type controllerManger struct {
+	internalStop <-chan struct{}
+
+	internalStopper chan<- struct{}
+}
+
+func TestChannel(t *testing.T) {
+	stop := make(chan struct{})
+
+	c := &controllerManger{
+		internalStop:    stop,
+		internalStopper: stop,
+	}
+
+	c.Start()
+
+	time.Sleep(10 * time.Second)
+	fmt.Println("10s...")
+}
+
+func (cm *controllerManger) Start() {
+	defer close(cm.internalStopper)
+
+	go start(cm.internalStop)
+	fmt.Println("start.....")
+
+	select {
+	case <-time.After(5 * time.Second):
+		fmt.Println("it's time 5s.")
+		return
+	}
+}
+
+func start(stop <-chan struct{}) {
+	<-stop
+	fmt.Println("start is over....")
+}
+
+func TestMask(t *testing.T) {
+	// This mask corresponds to a /31 subnet for IPv4.
+	bm := net.CIDRMask(26, 32)
+	fmt.Println(bm.String())
+	ones, bits := bm.Size()
+	fmt.Println(ones, bits)
+
+	// This mask corresponds to a /64 subnet for IPv6.
+	fmt.Println(net.CIDRMask(64, 128))
 }
