@@ -9,4 +9,5 @@ import (
 
 func DeploymentHub(party iris.Party) {
 	party.Put("/namespaces/{namespace}/deployments/{deployment}/inject", hero.Handler(new(controllers.DeploymentController).Inject))
+	party.Post("/namespaces/{namespace}/deployments/apply", hero.Handler(new(controllers.DeploymentController).Apply))
 }

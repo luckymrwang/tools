@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"io/ioutil"
 	"tools/iris/services"
 
 	"github.com/kataras/iris/v12"
@@ -31,4 +32,28 @@ func (c *DeploymentController) Inject(ctx iris.Context) {
 		return
 	}
 	c.EchoJsonOk(ctx)
+}
+
+// @Summary Deploy
+// @Description Deploy
+// @Tags 接口
+// @Accept json
+// @Produce json
+// @Param namespace path string true "namespace"
+// @Success 200 {string} string	"ok"
+// @Router /namespaces/{namespace}/deployments/apply [post]
+func (c *DeploymentController) Apply(ctx iris.Context) {
+	namespace := ctx.Params().Get("namespace")
+	data, err := ioutil.ReadAll(ctx.Request().Body)
+	if err != nil {
+		c.EchoErr(ctx, err)
+		return
+	}
+	kubeconfig := ctx.URLParam("kubeconfig")
+	ret, err := services.GetDeploymentService(ctx).Apply(kubeconfig, namespace, data)
+	if err != nil {
+		c.EchoErr(ctx, err)
+		return
+	}
+	c.EchoJsonOk(ctx, string(ret))
 }

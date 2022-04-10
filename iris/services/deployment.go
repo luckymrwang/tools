@@ -1,10 +1,16 @@
 package services
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"io/ioutil"
+	"net/http"
+	"time"
 	"tools/iris/common"
+
+	"k8s.io/client-go/rest"
+	"k8s.io/klog"
 
 	"github.com/kataras/iris/v12"
 	v1 "k8s.io/api/apps/v1"
@@ -204,4 +210,35 @@ func (s *DeploymentService) InjectSidecar(kubeconfig, namespace, name, srcPath s
 	}
 
 	return deploy, nil
+}
+
+func (s *DeploymentService) Apply(kubeconfig, namespace string, data []byte) ([]byte, error) {
+	kubeConfig, err := ioutil.ReadFile(getKubeConfig(kubeconfig))
+	if err != nil {
+		return nil, fmt.Errorf("读取 kube config 失败：%s", err.Error())
+	}
+	restConfig, err := common.GetRestConfig(string(kubeConfig))
+	if err != nil {
+		return nil, fmt.Errorf("获取 k8s 客户端配置：%s", err.Error())
+	}
+
+	defaultTransport, err := rest.TransportFor(restConfig)
+	if err != nil {
+		klog.Errorf("Unable to create transport from rest.Config: %v", err)
+		return nil, err
+	}
+	client := &http.Client{Timeout: time.Duration(common.DEFAULT_HTTP_TIMEOUT), Transport: defaultTransport}
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s/apis/apps/v1/deployments", restConfig.Host), bytes.NewReader(data))
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := client.Do(req)
+	defer func() {
+		if resp != nil {
+			resp.Body.Close()
+		}
+	}()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
 }

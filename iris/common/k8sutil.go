@@ -60,3 +60,7 @@ func GetDynamicClient(credential string) (dynamic.Interface, error) {
 	}
 	return dynamicClient, nil
 }
+
+func GetRestConfig(credential string) (*rest.Config, error) {
+	return genRestConfig(credential)
+}
