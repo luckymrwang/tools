@@ -50,7 +50,7 @@ func (c *DeploymentController) Apply(ctx iris.Context) {
 		return
 	}
 	kubeconfig := ctx.URLParam("kubeconfig")
-	ret, err := services.GetDeploymentService(ctx).Apply(kubeconfig, namespace, data)
+	ret, err := services.GetDeploymentService(ctx).ApplyCreate(kubeconfig, namespace, data)
 	if err != nil {
 		c.EchoErr(ctx, err)
 		return
