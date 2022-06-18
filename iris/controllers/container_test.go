@@ -175,3 +175,29 @@ func TestMask(t *testing.T) {
 	// This mask corresponds to a /64 subnet for IPv6.
 	fmt.Println(net.CIDRMask(64, 128))
 }
+
+func TestStopCh(t *testing.T) {
+	stop := make(chan struct{})
+	worker(stop)
+	time.Sleep(3 * time.Second)
+	close(stop)
+	fmt.Println("close stop.")
+}
+
+func worker(stopCh <-chan struct{}) {
+	t := time.NewTicker(1 * time.Second)
+	go func() {
+		defer fmt.Println("worker exit")
+		// Using stop channel explicit exit
+		for {
+			select {
+			case <-stopCh:
+				fmt.Println("Recv stop signal")
+				return
+			case <-t.C:
+				fmt.Println("Working .")
+			}
+		}
+	}()
+	return
+}
