@@ -50,6 +50,7 @@ func main() {
 }
 
 func p() string {
+	time.Sleep(3 * time.Second)
 	panic("xxxddd")
 }
 
