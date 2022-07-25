@@ -42,7 +42,20 @@ func TestHandleExecShell(t *testing.T) {
 
 func TestGet(t *testing.T) {
 	var f float64 = 1.23
-	fmt.Printf("%0.f", f)
+	fmt.Printf("%0.f\n", f)
+	a := "I'm string"
+	fmt.Println(a)
+	var ptr *int
+	if ptr == nil {
+		fmt.Println("ptr is nil")
+	} else {
+		fmt.Println("redirect to...")
+		goto to
+	}
+to:
+	fmt.Println("goto...")
+
+	fmt.Printf("ptr 的值为 : %x\n", ptr)
 }
 
 func TestResponseRecorder(t *testing.T) {
@@ -200,4 +213,15 @@ func worker(stopCh <-chan struct{}) {
 		}
 	}()
 	return
+}
+
+func TestSlice(t *testing.T) {
+	subnets := make([]string, 0)
+	subnets = append(subnets, getSlice()...)
+	fmt.Println(subnets)
+	return
+}
+
+func getSlice() []string {
+	return nil
 }
