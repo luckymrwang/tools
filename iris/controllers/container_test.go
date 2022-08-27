@@ -187,6 +187,14 @@ func TestMask(t *testing.T) {
 
 	// This mask corresponds to a /64 subnet for IPv6.
 	fmt.Println(net.CIDRMask(64, 128))
+
+	fmt.Printf("ip: %s\n", net.ParseIP("192.166.1.4").String())
+	ip, cidr, err := net.ParseCIDR("192.166.1.4")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	fmt.Printf("ip: %s, cidr: %s\n", ip.String(), cidr.String())
 }
 
 func TestStopCh(t *testing.T) {

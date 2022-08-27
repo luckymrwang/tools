@@ -57,3 +57,27 @@ func (c *DeploymentController) Apply(ctx iris.Context) {
 	}
 	c.EchoJsonOk(ctx, string(ret))
 }
+
+// @Summary Deploy
+// @Description Deploy
+// @Tags 接口
+// @Accept json
+// @Produce json
+// @Param namespace path string true "namespace"
+// @Success 200 {string} string	"ok"
+// @Router /namespaces/{namespace}/deployments/applydryrun [post]
+func (c *DeploymentController) ApplyDryRun(ctx iris.Context) {
+	namespace := ctx.Params().Get("namespace")
+	data, err := ioutil.ReadAll(ctx.Request().Body)
+	if err != nil {
+		c.EchoErr(ctx, err)
+		return
+	}
+	kubeconfig := ctx.URLParam("kubeconfig")
+	ret, err := services.GetDeploymentService(ctx).ApplyCreateDryRun(kubeconfig, namespace, data)
+	if err != nil {
+		c.EchoErr(ctx, err)
+		return
+	}
+	c.EchoJsonOk(ctx, string(ret))
+}

@@ -228,9 +228,46 @@ func (s *DeploymentService) ApplyCreate(kubeconfig, namespace string, data []byt
 		return nil, err
 	}
 	client := &http.Client{Timeout: time.Duration(common.DEFAULT_HTTP_TIMEOUT), Transport: defaultTransport}
-	req, err := http.NewRequest("POST", fmt.Sprintf("%s/apis/apps/v1/deployments", restConfig.Host), bytes.NewReader(data))
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s/apis/apps/v1/namespaces/calico/deployments", restConfig.Host), bytes.NewReader(data))
 	req.Header.Set("Content-Type", "application/json")
 	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		if resp != nil {
+			resp.Body.Close()
+		}
+	}()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
+}
+
+func (s *DeploymentService) ApplyCreateDryRun(kubeconfig, namespace string, data []byte) ([]byte, error) {
+	kubeConfig, err := ioutil.ReadFile(getKubeConfig(kubeconfig))
+	if err != nil {
+		return nil, fmt.Errorf("读取 kube config 失败：%s", err.Error())
+	}
+	restConfig, err := common.GetRestConfig(string(kubeConfig))
+	if err != nil {
+		return nil, fmt.Errorf("获取 k8s 客户端配置：%s", err.Error())
+	}
+
+	defaultTransport, err := rest.TransportFor(restConfig)
+	if err != nil {
+		klog.Errorf("Unable to create transport from rest.Config: %v", err)
+		return nil, err
+	}
+	client := &http.Client{Timeout: time.Duration(common.DEFAULT_HTTP_TIMEOUT), Transport: defaultTransport}
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s/apis/apps/v1/namespaces/calico/deployments?dryRun=All", restConfig.Host), bytes.NewReader(data))
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
 	defer func() {
 		if resp != nil {
 			resp.Body.Close()
@@ -259,9 +296,12 @@ func (s *DeploymentService) ApplyReplace(kubeconfig, namespace string, data []by
 		return nil, err
 	}
 	client := &http.Client{Timeout: time.Duration(common.DEFAULT_HTTP_TIMEOUT), Transport: defaultTransport}
-	req, err := http.NewRequest("PUT", fmt.Sprintf("%s/apis/apps/v1/deployments/httpbin", restConfig.Host), bytes.NewReader(data))
+	req, err := http.NewRequest("PUT", fmt.Sprintf("%s/apis/apps/v1/namespaces/calico/deployments/httpbin", restConfig.Host), bytes.NewReader(data))
 	req.Header.Set("Content-Type", "application/json")
 	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
 	defer func() {
 		if resp != nil {
 			resp.Body.Close()
