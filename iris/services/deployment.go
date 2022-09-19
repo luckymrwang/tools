@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"time"
 	"tools/iris/common"
 
@@ -27,7 +29,7 @@ func GetDeploymentService(ctx iris.Context) *DeploymentService {
 }
 
 func (s *DeploymentService) InjectNodejs(kubeconfig, namespace, name, srcPath string) (*v1.Deployment, error) {
-	kubeConfig, err := ioutil.ReadFile(getKubeConfig(kubeconfig))
+	kubeConfig, err := os.ReadFile(getKubeConfig(kubeconfig))
 	if err != nil {
 		return nil, fmt.Errorf("读取 kube config 失败：%s", err.Error())
 	}
@@ -121,7 +123,7 @@ func (s *DeploymentService) InjectNodejs(kubeconfig, namespace, name, srcPath st
 }
 
 func (s *DeploymentService) InjectSidecar(kubeconfig, namespace, name, srcPath string) (*v1.Deployment, error) {
-	kubeConfig, err := ioutil.ReadFile(getKubeConfig(kubeconfig))
+	kubeConfig, err := os.ReadFile(getKubeConfig(kubeconfig))
 	if err != nil {
 		return nil, fmt.Errorf("读取 kube config 失败：%s", err.Error())
 	}
@@ -213,7 +215,7 @@ func (s *DeploymentService) InjectSidecar(kubeconfig, namespace, name, srcPath s
 }
 
 func (s *DeploymentService) ApplyCreate(kubeconfig, namespace string, data []byte) ([]byte, error) {
-	kubeConfig, err := ioutil.ReadFile(getKubeConfig(kubeconfig))
+	kubeConfig, err := os.ReadFile(getKubeConfig(kubeconfig))
 	if err != nil {
 		return nil, fmt.Errorf("读取 kube config 失败：%s", err.Error())
 	}
@@ -247,7 +249,7 @@ func (s *DeploymentService) ApplyCreate(kubeconfig, namespace string, data []byt
 }
 
 func (s *DeploymentService) ApplyCreateDryRun(kubeconfig, namespace string, data []byte) ([]byte, error) {
-	kubeConfig, err := ioutil.ReadFile(getKubeConfig(kubeconfig))
+	kubeConfig, err := os.ReadFile(getKubeConfig(kubeconfig))
 	if err != nil {
 		return nil, fmt.Errorf("读取 kube config 失败：%s", err.Error())
 	}
@@ -273,7 +275,7 @@ func (s *DeploymentService) ApplyCreateDryRun(kubeconfig, namespace string, data
 			resp.Body.Close()
 		}
 	}()
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -281,7 +283,7 @@ func (s *DeploymentService) ApplyCreateDryRun(kubeconfig, namespace string, data
 }
 
 func (s *DeploymentService) ApplyReplace(kubeconfig, namespace string, data []byte) ([]byte, error) {
-	kubeConfig, err := ioutil.ReadFile(getKubeConfig(kubeconfig))
+	kubeConfig, err := os.ReadFile(getKubeConfig(kubeconfig))
 	if err != nil {
 		return nil, fmt.Errorf("读取 kube config 失败：%s", err.Error())
 	}
@@ -307,7 +309,7 @@ func (s *DeploymentService) ApplyReplace(kubeconfig, namespace string, data []by
 			resp.Body.Close()
 		}
 	}()
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}

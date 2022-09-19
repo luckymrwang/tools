@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"io/ioutil"
+	"io"
 	"tools/iris/services"
 
 	"github.com/kataras/iris/v12"
@@ -44,7 +44,7 @@ func (c *DeploymentController) Inject(ctx iris.Context) {
 // @Router /namespaces/{namespace}/deployments/apply [post]
 func (c *DeploymentController) Apply(ctx iris.Context) {
 	namespace := ctx.Params().Get("namespace")
-	data, err := ioutil.ReadAll(ctx.Request().Body)
+	data, err := io.ReadAll(ctx.Request().Body)
 	if err != nil {
 		c.EchoErr(ctx, err)
 		return
@@ -68,7 +68,7 @@ func (c *DeploymentController) Apply(ctx iris.Context) {
 // @Router /namespaces/{namespace}/deployments/applydryrun [post]
 func (c *DeploymentController) ApplyDryRun(ctx iris.Context) {
 	namespace := ctx.Params().Get("namespace")
-	data, err := ioutil.ReadAll(ctx.Request().Body)
+	data, err := io.ReadAll(ctx.Request().Body)
 	if err != nil {
 		c.EchoErr(ctx, err)
 		return

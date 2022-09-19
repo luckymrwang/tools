@@ -99,4 +99,5 @@ func Hub(party iris.Party) {
 	ContainerHub(party)
 	DeploymentHub(party)
 	WebsocketHub(party)
+	SubnetHub(party)
 }
