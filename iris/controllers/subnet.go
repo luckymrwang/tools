@@ -21,3 +21,11 @@ func (c *SubnetController) GetClusterCIDR(ctx iris.Context) {
 	}
 	c.EchoJsonOk(ctx, ret)
 }
+
+// @Router /subnets/clusters/wethercontains [get]
+func (c *SubnetController) WhetherContains(ctx iris.Context) {
+	subnetA := ctx.URLParam("a")
+	subnetB := ctx.URLParam("b")
+	ret := services.GetSubentService(ctx).WhetherContains(subnetA, subnetB)
+	c.EchoJsonOk(ctx, ret)
+}

@@ -82,3 +82,7 @@ func (s *SubentService) getClusterCIDR(address string) (clusterCIDRv4, clusterCI
 	}
 	return
 }
+
+func (s *SubentService) WhetherContains(subnetA, subnetB string) bool {
+	return common.ContainsCIDR(subnetA, subnetB)
+}

@@ -9,4 +9,5 @@ import (
 
 func SubnetHub(party iris.Party) {
 	party.Get("/subnets/clusters/cidr", hero.Handler(new(controllers.SubnetController).GetClusterCIDR))
+	party.Get("/subnets/clusters/wethercontains", hero.Handler(new(controllers.SubnetController).WhetherContains))
 }
