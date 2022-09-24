@@ -11,6 +11,7 @@ import (
 	"net/http/httptest"
 	"os"
 	"os/exec"
+	"reflect"
 	"testing"
 	"time"
 )
@@ -232,4 +233,11 @@ func TestSlice(t *testing.T) {
 
 func getSlice() []string {
 	return nil
+}
+
+func TestEqueue(t *testing.T) {
+	a := []string{"a", "b"}
+	b := []string{"b", "a"}
+	fmt.Println(reflect.DeepEqual(a, b))
+	return
 }
