@@ -129,16 +129,11 @@ func HttpDo(method string, httpurl string, header *P, param *P, tr *http.Transpo
 	}
 	var resp *http.Response
 	if strings.Contains(httpurl, "https") {
-		httpsClient := *client
 		if tr != nil {
-			transport := DefaultTransport
-			transport.TLSClientConfig = tr.TLSClientConfig
-			httpsClient.Transport = transport
+			client.Transport.(*http.Transport).TLSClientConfig = tr.TLSClientConfig
 		}
-		resp, err = httpsClient.Do(req)
-	} else {
-		resp, err = client.Do(req)
 	}
+	resp, err = client.Do(req)
 	if err != nil {
 		Error("HttpDo异常:", err.Error())
 		return []byte(ToString(resp)), err
