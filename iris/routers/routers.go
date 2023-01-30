@@ -54,6 +54,8 @@ func Init(app *iris.Application) {
 	hubBus := app.Party("/v1", crs).AllowMethods(iris.MethodOptions)
 	Hub(hubBus)
 
+	Hubv2(hubBus)
+
 	//app.Use(iris.FromStd(func(w http.ResponseWriter, r *http.Request) {
 	//	println("Request path: " + r.URL.Path)
 	//}))
@@ -100,4 +102,8 @@ func Hub(party iris.Party) {
 	DeploymentHub(party)
 	WebsocketHub(party)
 	SubnetHub(party)
+}
+
+func Hubv2(party iris.Party) {
+	ResourceHubv2(party)
 }

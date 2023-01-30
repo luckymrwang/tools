@@ -12,6 +12,7 @@ import (
 	"os"
 	"os/exec"
 	"reflect"
+	"sync"
 	"testing"
 	"time"
 )
@@ -240,4 +241,40 @@ func TestEqueue(t *testing.T) {
 	b := []string{"b", "a"}
 	fmt.Println(reflect.DeepEqual(a, b))
 	return
+}
+
+func TestWg(t *testing.T) {
+	var wg sync.WaitGroup
+	slics := make([]string, 10)
+	slics = append(slics, "bbbb")
+	for i := 0; i < 5; i++ {
+		wg.Add(1)
+		go cha(&wg, slics)
+	}
+	wg.Wait()
+	fmt.Println(slics)
+}
+
+func cha(wg *sync.WaitGroup, aa []string) {
+	defer wg.Done()
+
+	aa[1] = "kkkkkk"
+	return
+}
+
+func TestSlice2(t *testing.T) {
+	slice := make([]int, 2, 3)
+	for i := 0; i < len(slice); i++ {
+		slice[i] = i
+	}
+	fmt.Printf("slice: %v, addr: %p \n", slice, slice)
+	changeSlice(slice)
+	fmt.Printf("slice: %v, addr: %p \n", slice, slice)
+}
+
+func changeSlice(s []int) {
+	s[1] = 111
+	s = append(s, 3)
+	//s = append(s, 4)
+	fmt.Printf("func s: %v, addr: %p \n", s, s)
 }
