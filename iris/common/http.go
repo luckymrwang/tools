@@ -128,11 +128,9 @@ func HttpDo(method string, httpurl string, header *P, param *P, tr *http.Transpo
 		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	}
 	var resp *http.Response
-	if strings.Contains(httpurl, "https") {
+	if strings.Contains(httpurl, "https") && tr != nil {
 		httpsClient := &http.Client{}
-		if tr != nil {
-			httpsClient.Transport = tr
-		}
+		httpsClient.Transport = tr
 		resp, err = httpsClient.Do(req)
 	} else {
 		resp, err = client.Do(req)
