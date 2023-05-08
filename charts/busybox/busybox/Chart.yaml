@@ -1,0 +1,14 @@
+apiVersion: v1
+description: A utility chart to verify clusters and processes
+name: busybox
+version: 0.0.2
+maintainers:
+  - name: Nikhil Gorantla
+icon: https://www.busybox.net/images/busybox1.png
+keywords:
+  - busybox
+  - testing
+  - sanity check
+  - network
+  - connectivity
+home: https://www.busybox.net/
