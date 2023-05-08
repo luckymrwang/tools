@@ -278,3 +278,17 @@ func changeSlice(s []int) {
 	//s = append(s, 4)
 	fmt.Printf("func s: %v, addr: %p \n", s, s)
 }
+
+func TestStruct1(t *testing.T) {
+	ddd := new(Dog)
+	fmt.Println(ddd)
+	if ddd == nil {
+		fmt.Println("ddd is nil")
+	}
+
+	var ggg *Dog
+	fmt.Println(ggg)
+	if ggg == nil {
+		fmt.Println("ggg is nil")
+	}
+}
