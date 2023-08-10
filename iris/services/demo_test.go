@@ -6,6 +6,7 @@ import (
 	"log"
 	"net"
 	"regexp"
+	"runtime/debug"
 	"strconv"
 	"testing"
 	"unicode/utf8"
@@ -57,7 +58,23 @@ func TestAS(t *testing.T) {
 	fmt.Println(ass)
 
 	f := float64(30.33)
+	prt()
 	fmt.Printf("%.f", f)
+}
+
+func prt() {
+	debug.PrintStack()
+}
+
+func TestCopy(t *testing.T) {
+	map1 := map[string]string{"1": "1", "2": "2", "3": "3"}
+	mp2 := map1
+	fmt.Printf("[old] address: %p, values: %v\n", map1, map1)
+	fmt.Printf("[new] address: %p, values: %v\n", mp2, mp2)
+	t.Logf("修改map1中的一个值后")
+	map1["1"] = "100"
+	fmt.Printf("[old] address: %p, values: %v\n", map1, map1)
+	fmt.Printf("[new] address: %p, values: %v\n", mp2, mp2)
 }
 
 func TestMatch(t *testing.T) {
