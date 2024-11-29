@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -290,5 +291,64 @@ func TestStruct1(t *testing.T) {
 	fmt.Println(ggg)
 	if ggg == nil {
 		fmt.Println("ggg is nil")
+	}
+	data := make(map[string]interface{})
+	fmt.Println(data)
+	mm1(nil)
+}
+
+func mm1(datamap map[string]interface{}) {
+	fmt.Println(datamap)
+	if len(datamap) > 0 {
+		fmt.Println("not 0")
+	} else {
+		fmt.Println("0")
+	}
+	da1 := make(map[string]string)
+	da1["a"] = "a"
+	da1["b"] = "b"
+
+	da2 := make(map[string]string)
+	da2["a"] = "a"
+	da2["c"] = "c"
+
+	for key, val := range da1 {
+		if da2[key] == val {
+			fmt.Println("equal: ", key, val)
+		}
+	}
+	fmt.Println(da1["cccccc"], "oo")
+}
+
+func TestAsyncCall(t *testing.T) {
+	for i := 1; i <= 3; i++ {
+		// 为每个协程创建一个带有超时的上下文
+		ctx, cancel := context.WithTimeout(context.Background(), time.Duration(i)*2*time.Second)
+		defer cancel() // 确保取消上下文以释放资源
+
+		go downloadData(ctx, i)
+	}
+
+	// 等待一段时间以便所有协程可以执行
+	time.Sleep(10 * time.Second)
+}
+
+func downloadData(ctx context.Context, id int) {
+	dealLine, dead := ctx.Deadline()
+	fmt.Printf("协程 %d,deadLine:%v,dead:%v\n", id, dealLine, dead)
+	select {
+	case <-time.After(5 * time.Second): // 模拟下载任务耗时
+		fmt.Printf("协程 %d: 数据下载完成\n", id)
+	case <-ctx.Done():
+		fmt.Printf("协程 %d: 下载超时: %v\n", id, ctx.Err())
+	}
+}
+
+func TestClosure(t *testing.T) {
+	for i := 0; i < 5; i++ {
+		go func() {
+			fmt.Println(i)
+		}()
+		time.Sleep(2 * time.Second)
 	}
 }

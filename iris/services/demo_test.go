@@ -32,6 +32,14 @@ func TestGet(t *testing.T) {
 	}
 }
 
+func TestSlice(t *testing.T) {
+	a := []string{"a", "b", "c"}
+	for _, s := range a {
+		fmt.Println(&s)
+	}
+	fmt.Println(a)
+}
+
 type AS struct {
 	AA string
 	BB string
