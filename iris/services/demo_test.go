@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"reflect"
 	"regexp"
 	"runtime/debug"
 	"strconv"
@@ -98,5 +99,31 @@ func TestMatch(t *testing.T) {
 		fmt.Println("not match")
 	} else {
 		fmt.Println("match")
+	}
+}
+
+func TestSymmetricDifference(t *testing.T) {
+	tests := []struct {
+		name     string
+		slice1   []int
+		slice2   []int
+		expected []int
+	}{
+		{"empty slices", []int{}, []int{}, []int{}},
+		{"no difference", []int{1, 2, 3}, []int{1, 2, 3}, []int{}},
+		{"some difference1", []int{1, 2, 3}, []int{2, 3, 4}, []int{1, 4}},
+		{"some difference2", []int{1, 2}, []int{2, 3, 4}, []int{1, 3, 4}},
+		{"some difference3", []int{1}, []int{1, 3, 4}, []int{3, 4}},
+		{"some difference4", []int{1, 2, 3}, []int{2, 3}, []int{1}},
+		{"all difference", []int{1, 2, 3}, []int{4, 5, 6}, []int{1, 2, 3, 4, 5, 6}},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			actual := SymmetricDifference(tt.slice1, tt.slice2)
+			if !reflect.DeepEqual(actual, tt.expected) {
+				t.Errorf("difference(%v, %v) = %v, want %v", tt.slice1, tt.slice2, actual, tt.expected)
+			}
+		})
 	}
 }

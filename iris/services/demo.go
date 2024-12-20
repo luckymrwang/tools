@@ -42,3 +42,23 @@ func (s *DemoService) Echo() error {
 
 	return nil
 }
+
+func difference(a, b []int) []int {
+	m := make(map[int]struct{}, len(b))
+	for _, v := range b {
+		m[v] = struct{}{}
+	}
+	var diff []int
+	for _, v := range a {
+		if _, found := m[v]; !found {
+			diff = append(diff, v)
+		}
+	}
+	return diff
+}
+
+func SymmetricDifference(slice1, slice2 []int) []int {
+	diff1 := difference(slice1, slice2)
+	diff2 := difference(slice2, slice1)
+	return append(diff1, diff2...)
+}

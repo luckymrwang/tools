@@ -352,3 +352,20 @@ func TestClosure(t *testing.T) {
 		time.Sleep(2 * time.Second)
 	}
 }
+
+type A struct {
+	B string
+	C int
+	D bool
+}
+
+func TestA(t *testing.T) {
+	a := &A{}
+	fmt.Println(a)
+
+	var b *A
+	fmt.Println(b)
+
+	c := new(A)
+	fmt.Println(c)
+}
