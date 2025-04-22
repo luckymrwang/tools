@@ -16,6 +16,7 @@ import (
 	"sync"
 	"testing"
 	"time"
+	"tools/iris/common"
 )
 
 type Dog struct {
@@ -368,4 +369,51 @@ func TestA(t *testing.T) {
 
 	c := new(A)
 	fmt.Println(c)
+
+	d := new([]int)
+	fmt.Println(d)
+
+	e := make([]int, 0)
+	fmt.Println(e)
+
+	var f A
+	fmt.Println(f)
+}
+
+type S1 struct {
+	AA string
+	BB map[string]string
+}
+
+func TestS1(t *testing.T) {
+	s := S1{}
+	fmt.Println(s)
+
+	s.AA = "ceshi\n"
+	s.BB = map[string]string{"kkk": "cedsn\n"}
+	fmt.Println(s)
+	str := common.JSONEncode(s)
+	fmt.Println(str)
+}
+
+type Fence struct {
+	runtimeId string
+	gpuCnt    int
+	status    string
+}
+
+func TestFence(t *testing.T) {
+	cnts := []Fence{
+		{runtimeId: "a", gpuCnt: 1, status: "Ready"},
+		{runtimeId: "b", gpuCnt: 1, status: "Ready"},
+		{runtimeId: "c", gpuCnt: 1, status: "xx"},
+		{runtimeId: "a", gpuCnt: 3, status: "Ready"},
+		{runtimeId: "b", gpuCnt: 2, status: "xx"},
+		{runtimeId: "a", gpuCnt: 1, status: "Ready"},
+		{runtimeId: "c", gpuCnt: 2, status: "Rexxady"},
+	}
+	runtimeGPUNum := make(map[string]int)
+	for _, cnt := range cnts {
+		runtimeGPUNum[cnt.runtimeId] += cnt.gpuCnt
+	}
 }
