@@ -3,29 +3,34 @@ module tools
 go 1.12
 
 require (
-	github.com/ajg/form v1.5.1 // indirect
 	github.com/astaxie/beego v1.12.2
 	github.com/bndr/gojenkins v1.0.1
-	github.com/google/go-querystring v1.0.0 // indirect
+	github.com/coreos/etcd v3.3.10+incompatible
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/fsnotify/fsnotify v1.4.9 // indirect
+	github.com/ghodss/yaml v1.0.0 // indirect
+	github.com/go-sql-driver/mysql v1.5.0
+	github.com/gogo/protobuf v1.3.1 // indirect
+	github.com/golang/groupcache v0.0.0-20160516000752-02826c3e7903 // indirect
+	github.com/golang/mock v1.2.0
+	github.com/golang/protobuf v1.4.2
+	github.com/google/btree v1.0.0 // indirect
 	github.com/gorilla/websocket v1.4.2
-	github.com/imkira/go-interpol v1.1.0 // indirect
-	github.com/kataras/golog v0.1.6 // indirect
-	github.com/kataras/iris/v12 v12.1.8 // indirect
-	github.com/kataras/tunnel v0.0.2 // indirect
-	github.com/moul/http2curl v1.0.0 // indirect
+	github.com/hpcloud/tail v1.0.0
+	github.com/jonboulle/clockwork v0.1.0 // indirect
+	github.com/json-iterator/go v1.1.10
+	github.com/lib/pq v1.0.0
 	github.com/satori/go.uuid v1.2.0
-	github.com/sergi/go-diff v1.1.0 // indirect
-	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
-	github.com/tdewolff/minify/v2 v2.9.11 // indirect
-	github.com/valyala/fasthttp v1.19.0 // indirect
-	github.com/xeipuuv/gojsonschema v1.2.0 // indirect
+	github.com/spf13/afero v1.2.2 // indirect
+	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/spf13/viper v1.3.2
 	github.com/yale8848/gorpool v0.1.0
-	github.com/yalp/jsonpath v0.0.0-20180802001716-5cc68e5049a0 // indirect
-	github.com/yudai/gojsondiff v1.0.0 // indirect
-	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
-	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
-	golang.org/x/net v0.0.0-20201016165138-7b1cca2348c0
+	golang.org/x/crypto v0.1.0
+	golang.org/x/net v0.1.0
+	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4 // indirect
+	golang.org/x/tools v0.1.12
+	google.golang.org/genproto v0.0.0-20190418145605-e7d98fc518a7 // indirect
+	google.golang.org/grpc v1.19.0
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
 	gopkg.in/robfig/cron.v2 v2.0.0-20150107220207-be2e0b0deed5
-	k8s.io/kubectl v0.18.2 // indirect
 )
